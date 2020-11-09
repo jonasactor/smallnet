@@ -1,0 +1,6 @@
+dataid,image,label
+0,TrainingBatch1/volume-0.nii,TrainingBatch1/segmentation-0.nii
+1,TrainingBatch1/volume-1.nii,TrainingBatch1/segmentation-1.nii
+2,TrainingBatch1/volume-2.nii,TrainingBatch1/segmentation-2.nii
+3,TrainingBatch1/volume-3.nii,TrainingBatch1/segmentation-3.nii
+4,TrainingBatch1/volume-4.nii,TrainingBatch1/segmentation-4.nii
