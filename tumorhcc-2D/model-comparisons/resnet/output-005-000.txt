@@ -1,0 +1,533 @@
+Performing setup
+files already generated: using /rsrch1/ip/jacctor/smallnet/tumorhcc-2D/alldata/data/datalocations_liver.txt
+Output to	 ./model-comparisons/resnet/005/000
+kfold: 	 5
+idfold: 	 0
+train_index:	 [ 27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44
+  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62
+  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80
+  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98
+  99 100 101 102 103 104 105 106 107 108 109]
+valid_index:	 [110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127
+ 128 129 130]
+test_index:	 [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26]
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            (None, 256, 256, 1)  0                                            
+__________________________________________________________________________________________________
+lambda_1 (Lambda)               (None, 256, 256, 1)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+lambda_2 (Lambda)               (None, 256, 256, 1)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+model_1 (Model)                 (None, 256, 256, 1)  522577      lambda_1[0][0]                   
+                                                                 lambda_2[0][0]                   
+__________________________________________________________________________________________________
+conv2d_22 (Concatenate)         (None, 256, 256, 1)  0           model_1[1][0]                    
+                                                                 model_1[2][0]                    
+==================================================================================================
+Total params: 522,577
+Trainable params: 522,577
+Non-trainable params: 0
+__________________________________________________________________________________________________
+
+
+	livermask training...	Model parameters: 522,577
+Epoch 1/40
+ - 56s - loss: 0.4331 - dsc_l2: 0.4331 - val_loss: 0.8719 - val_dsc_l2: 0.8719
+
+Epoch 00001: val_loss improved from inf to 0.87187, saving model to ./model-comparisons/resnet/005/000/liver/modelunet.h5
+Epoch 2/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8719 - val_dsc_l2: 0.8719
+
+Epoch 00002: val_loss did not improve from 0.87187
+Epoch 3/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00003: val_loss did not improve from 0.87187
+Epoch 4/40
+ - 50s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00004: val_loss did not improve from 0.87187
+Epoch 5/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00005: val_loss did not improve from 0.87187
+Epoch 6/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00006: val_loss did not improve from 0.87187
+Epoch 7/40
+ - 47s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00007: val_loss did not improve from 0.87187
+Epoch 8/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00008: val_loss did not improve from 0.87187
+Epoch 9/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00009: val_loss did not improve from 0.87187
+Epoch 10/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00010: val_loss did not improve from 0.87187
+Epoch 11/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00011: val_loss did not improve from 0.87187
+Epoch 12/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00012: val_loss did not improve from 0.87187
+Epoch 13/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8719 - val_dsc_l2: 0.8719
+
+Epoch 00013: val_loss improved from 0.87187 to 0.87186, saving model to ./model-comparisons/resnet/005/000/liver/modelunet.h5
+Epoch 14/40
+ - 47s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00014: val_loss did not improve from 0.87186
+Epoch 15/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00015: val_loss did not improve from 0.87186
+Epoch 16/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00016: val_loss did not improve from 0.87186
+Epoch 17/40
+ - 47s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00017: val_loss did not improve from 0.87186
+Epoch 18/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00018: val_loss did not improve from 0.87186
+Epoch 19/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00019: val_loss did not improve from 0.87186
+Epoch 20/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00020: val_loss did not improve from 0.87186
+Epoch 21/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00021: val_loss did not improve from 0.87186
+Epoch 22/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00022: val_loss did not improve from 0.87186
+Epoch 23/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00023: val_loss did not improve from 0.87186
+Epoch 24/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00024: val_loss did not improve from 0.87186
+Epoch 25/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00025: val_loss did not improve from 0.87186
+Epoch 26/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00026: val_loss did not improve from 0.87186
+Epoch 27/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00027: val_loss did not improve from 0.87186
+Epoch 28/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00028: val_loss did not improve from 0.87186
+Epoch 29/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00029: val_loss did not improve from 0.87186
+Epoch 30/40
+ - 49s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00030: val_loss did not improve from 0.87186
+Epoch 31/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00031: val_loss did not improve from 0.87186
+Epoch 32/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00032: val_loss did not improve from 0.87186
+Epoch 33/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00033: val_loss did not improve from 0.87186
+Epoch 34/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00034: val_loss did not improve from 0.87186
+Epoch 35/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00035: val_loss did not improve from 0.87186
+Epoch 36/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00036: val_loss did not improve from 0.87186
+Epoch 37/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00037: val_loss did not improve from 0.87186
+Epoch 38/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00038: val_loss did not improve from 0.87186
+Epoch 39/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8722 - val_dsc_l2: 0.8722
+
+Epoch 00039: val_loss did not improve from 0.87186
+Epoch 40/40
+ - 48s - loss: 0.8832 - dsc_l2: 0.8832 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00040: val_loss did not improve from 0.87186
+kfold: 	 5
+idfold: 	 0
+train_index:	 [ 27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44
+  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62
+  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80
+  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98
+  99 100 101 102 103 104 105 106 107 108 109]
+valid_index:	 [110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127
+ 128 129 130]
+test_index:	 [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26]
+loading model from ./model-comparisons/resnet/005/000/liver/modelunet.h5
+loading data from  /rsrch1/ip/jacctor/smallnet/tumorhcc-2D/alldata/data/datalocations.txt
+
+Image 0
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9497771628844724
++ 	DSC-L2 3D        (int) :	 0.9497771628844724
++ 	DSC-L2 3D LCC    (int) :	 0.9497771628844724
++ 	DSC-L2 2D AVG  (float) :	 0.9528074758719669
++ 	DSC-L2 2D AVG    (int) :	 0.9528074758719669
+
+Image 1
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9632693875727097
++ 	DSC-L2 3D        (int) :	 0.9632693875727097
++ 	DSC-L2 3D LCC    (int) :	 0.9632693875727097
++ 	DSC-L2 2D AVG  (float) :	 0.9663475845379293
++ 	DSC-L2 2D AVG    (int) :	 0.9663475845379293
+
+Image 2
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9570459741815754
++ 	DSC-L2 3D        (int) :	 0.9570461474417445
++ 	DSC-L2 3D LCC    (int) :	 0.9570461474417445
++ 	DSC-L2 2D AVG  (float) :	 0.9604475614736458
++ 	DSC-L2 2D AVG    (int) :	 0.9604475614736458
+
+Image 3
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9585012947429471
++ 	DSC-L2 3D        (int) :	 0.9585015185920047
++ 	DSC-L2 3D LCC    (int) :	 0.9585015185920047
++ 	DSC-L2 2D AVG  (float) :	 0.9615079749554564
++ 	DSC-L2 2D AVG    (int) :	 0.9615079749554564
+
+Image 4
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9496965009826839
++ 	DSC-L2 3D        (int) :	 0.9496972529732423
++ 	DSC-L2 3D LCC    (int) :	 0.9496972529732423
++ 	DSC-L2 2D AVG  (float) :	 0.9558559314497758
++ 	DSC-L2 2D AVG    (int) :	 0.9558559314497758
+
+Image 5
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9759143622267104
++ 	DSC-L2 3D        (int) :	 0.9759140534274848
++ 	DSC-L2 3D LCC    (int) :	 0.9759140534274848
++ 	DSC-L2 2D AVG  (float) :	 0.9768792630177716
++ 	DSC-L2 2D AVG    (int) :	 0.9768792630177716
+
+Image 6
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9670662349168394
++ 	DSC-L2 3D        (int) :	 0.9670660032002353
++ 	DSC-L2 3D LCC    (int) :	 0.9670660032002353
++ 	DSC-L2 2D AVG  (float) :	 0.9685116866296106
++ 	DSC-L2 2D AVG    (int) :	 0.9685116866296106
+
+Image 7
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.960734099880201
++ 	DSC-L2 3D        (int) :	 0.9607346527528499
++ 	DSC-L2 3D LCC    (int) :	 0.9607346527528499
++ 	DSC-L2 2D AVG  (float) :	 0.9630562357312787
++ 	DSC-L2 2D AVG    (int) :	 0.9630562357312787
+
+Image 8
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.966298620054629
++ 	DSC-L2 3D        (int) :	 0.9662994240877255
++ 	DSC-L2 3D LCC    (int) :	 0.9662994240877255
++ 	DSC-L2 2D AVG  (float) :	 0.9681491710950485
++ 	DSC-L2 2D AVG    (int) :	 0.9681491710950485
+
+Image 9
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9711718568250601
++ 	DSC-L2 3D        (int) :	 0.9711723498207688
++ 	DSC-L2 3D LCC    (int) :	 0.9711723498207688
++ 	DSC-L2 2D AVG  (float) :	 0.9724374603556529
++ 	DSC-L2 2D AVG    (int) :	 0.9724374603556529
+
+Image 10
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9604024606864878
++ 	DSC-L2 3D        (int) :	 0.9604028188580649
++ 	DSC-L2 3D LCC    (int) :	 0.9604028188580649
++ 	DSC-L2 2D AVG  (float) :	 0.9623756276022153
++ 	DSC-L2 2D AVG    (int) :	 0.9623756276022153
+
+Image 11
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9520595736374697
++ 	DSC-L2 3D        (int) :	 0.9520593818949386
++ 	DSC-L2 3D LCC    (int) :	 0.9520593818949386
++ 	DSC-L2 2D AVG  (float) :	 0.9553278185117497
++ 	DSC-L2 2D AVG    (int) :	 0.9553278185117497
+
+Image 12
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9365741941609558
++ 	DSC-L2 3D        (int) :	 0.9365738044949502
++ 	DSC-L2 3D LCC    (int) :	 0.9365738044949502
++ 	DSC-L2 2D AVG  (float) :	 0.9415580608475932
++ 	DSC-L2 2D AVG    (int) :	 0.9415580608475932
+
+Image 13
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9783588357878644
++ 	DSC-L2 3D        (int) :	 0.9783590103992799
++ 	DSC-L2 3D LCC    (int) :	 0.9783590103992799
++ 	DSC-L2 2D AVG  (float) :	 0.979769530098802
++ 	DSC-L2 2D AVG    (int) :	 0.979769530098802
+
+Image 14
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9641929156509127
++ 	DSC-L2 3D        (int) :	 0.9641927882240197
++ 	DSC-L2 3D LCC    (int) :	 0.9641927882240197
++ 	DSC-L2 2D AVG  (float) :	 0.9672335783513326
++ 	DSC-L2 2D AVG    (int) :	 0.9672335783513326
+
+Image 15
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9602726261036262
++ 	DSC-L2 3D        (int) :	 0.9602732084479931
++ 	DSC-L2 3D LCC    (int) :	 0.9602732084479931
++ 	DSC-L2 2D AVG  (float) :	 0.9639423757311332
++ 	DSC-L2 2D AVG    (int) :	 0.9639423757311332
+
+Image 16
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9619970082046911
++ 	DSC-L2 3D        (int) :	 0.9619972681347787
++ 	DSC-L2 3D LCC    (int) :	 0.9619972681347787
++ 	DSC-L2 2D AVG  (float) :	 0.9654707667217134
++ 	DSC-L2 2D AVG    (int) :	 0.9654707667217134
+
+Image 17
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9696761191293821
++ 	DSC-L2 3D        (int) :	 0.9696755734472972
++ 	DSC-L2 3D LCC    (int) :	 0.9696755734472972
++ 	DSC-L2 2D AVG  (float) :	 0.9717301896490086
++ 	DSC-L2 2D AVG    (int) :	 0.9717301896490086
+
+Image 18
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.984458778086368
++ 	DSC-L2 3D        (int) :	 0.9844582047470614
++ 	DSC-L2 3D LCC    (int) :	 0.9844582047470614
++ 	DSC-L2 2D AVG  (float) :	 0.985071951478372
++ 	DSC-L2 2D AVG    (int) :	 0.985071951478372
+
+Image 19
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9510833929899418
++ 	DSC-L2 3D        (int) :	 0.9510836378838561
++ 	DSC-L2 3D LCC    (int) :	 0.9510836378838561
++ 	DSC-L2 2D AVG  (float) :	 0.9548151764768252
++ 	DSC-L2 2D AVG    (int) :	 0.9548151764768252
+
+Image 20
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9561258428807886
++ 	DSC-L2 3D        (int) :	 0.9561255308808659
++ 	DSC-L2 3D LCC    (int) :	 0.9561255308808659
++ 	DSC-L2 2D AVG  (float) :	 0.9591668851136834
++ 	DSC-L2 2D AVG    (int) :	 0.9591668851136834
+
+Image 21
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.952283304120788
++ 	DSC-L2 3D        (int) :	 0.9522826908175457
++ 	DSC-L2 3D LCC    (int) :	 0.9522826908175457
++ 	DSC-L2 2D AVG  (float) :	 0.9550121310147516
++ 	DSC-L2 2D AVG    (int) :	 0.9550121310147516
+
+Image 22
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9879593888759289
++ 	DSC-L2 3D        (int) :	 0.9879593888759289
++ 	DSC-L2 3D LCC    (int) :	 0.9879593888759289
++ 	DSC-L2 2D AVG  (float) :	 0.9884486441360929
++ 	DSC-L2 2D AVG    (int) :	 0.9884486441360929
+
+Image 23
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9569605206884628
++ 	DSC-L2 3D        (int) :	 0.9569601009113591
++ 	DSC-L2 3D LCC    (int) :	 0.9569601009113591
++ 	DSC-L2 2D AVG  (float) :	 0.9602502372731438
++ 	DSC-L2 2D AVG    (int) :	 0.9602502372731438
+
+Image 24
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9495995063551336
++ 	DSC-L2 3D        (int) :	 0.9495995063551336
++ 	DSC-L2 3D LCC    (int) :	 0.9495995063551336
++ 	DSC-L2 2D AVG  (float) :	 0.9523619118658376
++ 	DSC-L2 2D AVG    (int) :	 0.9523619118658376
+
+Image 25
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9660774070369952
++ 	DSC-L2 3D        (int) :	 0.9660778313292862
++ 	DSC-L2 3D LCC    (int) :	 0.9660778313292862
++ 	DSC-L2 2D AVG  (float) :	 0.9678213389476898
++ 	DSC-L2 2D AVG    (int) :	 0.9678213389476898
+
+Image 26
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/resnet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.9757923607294776
++ 	DSC-L2 3D        (int) :	 0.9757919546919889
++ 	DSC-L2 3D LCC    (int) :	 0.9757919546919889
++ 	DSC-L2 2D AVG  (float) :	 0.9769384297160784
++ 	DSC-L2 2D AVG    (int) :	 0.9769384297160784

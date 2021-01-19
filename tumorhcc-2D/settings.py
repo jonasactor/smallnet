@@ -48,6 +48,15 @@ def process_options():
     parser.add_option("--datafiles",
                   action="store", dest="datafiles", default=None,
                   help="location of pre-saved files", metavar="path")
+    parser.add_option("--datafiles_liver",
+                  action="store", dest="datafiles_liver", default=None,
+                  help="location of pre-saved files for liver training", metavar="path")
+    parser.add_option("--datafiles_tumor",
+                  action="store", dest="datafiles_tumor", default=None,
+                  help="location of pre-saved files for tumor training", metavar="path")
+    parser.add_option("--datafiles_all",
+                  action="store", dest="datafiles_all", default=None,
+                  help="location of pre-saved files for prediction", metavar="path")
 
     parser.add_option("--liver",
                   action="store_true", dest="liver", default=False,
@@ -162,7 +171,7 @@ def perform_setup(options):
         K.set_session(tf.Session(config=config))
     config = tf.ConfigProto()
     config.gpu_options.allow_growth=True
-    config.gpu_options.per_process_gpu_memory_fraction=0.25
+    config.gpu_options.per_process_gpu_memory_fraction=0.5
     K.set_session(tf.Session(config=config))
 
 

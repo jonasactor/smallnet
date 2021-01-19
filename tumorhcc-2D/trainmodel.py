@@ -36,7 +36,6 @@ def TrainModel(idfold=0, saveloclist=None):
 
     from setupmodel import GetSetupKfolds, GetCallbacks, GetOptimizer, GetLoss
     from buildmodel import get_unet
-    from generator import setup_training_from_file
 
     os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
     os.environ['HDF5_USE_FILE_LOCKING'] = 'FALSE'
@@ -63,8 +62,15 @@ def TrainModel(idfold=0, saveloclist=None):
     ###
 
     (train_index,test_index,valid_index) = GetSetupKfolds(settings.options.dbfile, kfolds, idfold)
-    if not saveloclist:
-        saveloclist = setup_training_from_file()
+#    if not saveloclist:
+#        saveloclist = setup_training_from_file()
+
+    if settings.options.liver:
+        saveloclist = settings.options.datafiles_liver
+    elif settings.options.tumor:
+        saveloclist = settings.options.datafiles_tumor
+    else:
+        saveloclist = settings.options.datafiles_liver
 
     loclist = np.genfromtxt(saveloclist, delimiter=',', dtype='str')[1:]
     trainingsubset = [ row for row in loclist if int(row[0]) in train_index]
@@ -96,6 +102,7 @@ def TrainModel(idfold=0, saveloclist=None):
     training_generator   = NpyDataGenerator(train_xlist, train_ylist)
     validation_generator = NpyDataGenerator(valid_xlist, valid_ylist)
     history_liver = model.fit_generator( \
+                        verbose=2,
                         generator=training_generator,
                         validation_data=validation_generator,
                         use_multiprocessing=True,

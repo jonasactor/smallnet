@@ -91,28 +91,13 @@ def dsc_l2_tumor(y_true, y_pred, smooth=0.0000001):
 ### npy versions
 ###
 
-def dsc_l2_npy(y_true, y_pred, smooth=0.0000001):
+def dsc_l2_3D_npy(y_true, y_pred, smooth=0.0000001):
     num = np.sum(np.square(y_true - y_pred))
     den = np.sum(np.square(y_true)) + np.sum(np.square(y_pred)) + smooth
     return num/den
 
-def dsc_l2_background_npy(y_true, y_pred, smooth=0.0000001):
-    y_t = (y_true == 0).astype(np.int32)
-    y_p = (y_pred == 0).astype(np.int32)
-    num = np.sum(np.square(y_t - y_p))
-    den = np.sum(np.square(y_t)) + np.sum(np.square(y_p)) + smooth
-    return num/den
+def dsc_l2_2D_avg_npy(y_true, y_pred, smooth=0.0000001):
+    num = np.sum(np.square(y_true - y_pred), axis=(1,2,3))
+    den = np.sum(np.square(y_true), axis=(1,2,3)) + np.sum(np.square(y_pred), axis=(1,2,3)) + smooth
+    return np.average( num / den )
 
-def dsc_l2_liver_npy(y_true, y_pred, smooth=0.0000001):
-    y_t = (y_true == 1).astype(np.int32)
-    y_p = (y_pred == 1).astype(np.int32)
-    num = np.sum(np.square(y_t - y_p))
-    den = np.sum(np.square(y_t)) + np.sum(np.square(y_p)) + smooth
-    return num/den
-
-def dsc_l2_tumor_npy(y_true, y_pred, smooth=0.0000001):
-    y_t = (y_true == 2).astype(np.int32)
-    y_p = (y_pred == 2).astype(np.int32)
-    num = np.sum(np.square(y_t - y_p))
-    den = np.sum(np.square(y_t)) + np.sum(np.square(y_p)) + smooth
-    return num/den

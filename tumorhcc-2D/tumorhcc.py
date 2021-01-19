@@ -2,26 +2,6 @@ import numpy as np
 import csv
 import sys
 import os
-# import json
-# import keras
-# from keras.layers import Input, Conv2D, UpSampling2D, Lambda, SpatialDropout2D, Dense, Layer, Activation, BatchNormalization, MaxPool2D, concatenate, LocallyConnected2D
-# from keras.models import Model, Sequential
-# from keras.models import model_from_json, load_model
-# from keras.utils import multi_gpu_model
-# from keras.utils.np_utils import to_categorical
-# import keras.backend as K
-# from keras.callbacks import TensorBoard, TerminateOnNaN, ModelCheckpoint
-# from keras.callbacks import Callback as CallbackBase
-# from keras.preprocessing.image import ImageDataGenerator
-# from keras.initializers import Constant
-# import nibabel as nib
-# from scipy import ndimage
-# from sklearn.model_selection import KFold
-# import skimage.transform
-# import matplotlib as mptlib
-# #mptlib.use('TkAgg')
-# import matplotlib.pyplot as plt
-# import tensorflow as tf
 
 
 import settings
@@ -41,12 +21,24 @@ if ( (not options.trainmodel) and (not options.predictmodel) ):
     quit()
 
 if options.trainmodel:
-    if not options.datafiles:
-        print('starting data file generation')
-        saveloclist = setup_training_from_file()
+    if options.liver:
+        if not options.datafiles_liver:
+            print('no list of liver .npy files given for training')
+            quit()
+        else:
+            saveloclist = options.datafiles_liver
+    elif options.tumor:
+        if not options.datafiles_tumor:
+            print('no list of tumor .npy files given for training')
+            quit()
+        else:
+            saveloclist = options.datafiles_tumor
     else:
-        print('files already generated: using', options.datafiles)
-        saveloclist = options.datafiles
+        print('not specified liver vs tumor')
+        quit()
+        
+    print('files already generated: using', saveloclist)
+    
 
     if options.kfolds > 1:
         if options.idfold > -1:

@@ -8,7 +8,7 @@ from scipy import ndimage
 import settings
 import preprocess
 
-
+'''
 def save_img_into_substacks(Xall, Yall, Xloc, Yloc, n_classes=1):
     """
     Saves 3D subset blocks as .npy files
@@ -23,8 +23,8 @@ def save_img_into_substacks(Xall, Yall, Xloc, Yloc, n_classes=1):
             Ythis = Yall[...,z,np.newaxis]
         else:
             Ythis = to_categorical(Yall[...,z], num_classes=n_classes)
-        Xthisloc = Xloc+'-'+str(z)+'.npy'
-        Ythisloc = Yloc+'-'+str(z)+'.npy'
+        Xthisloc = Xloc+'-'+str(z).zfill(4)+'.npy'
+        Ythisloc = Yloc+'-'+str(z).zfill(4)+'.npy'
         np.save(Xthisloc, Xthis)
         np.save(Ythisloc, Ythis)
         Xfilelist[z] = Xthisloc
@@ -109,6 +109,7 @@ def setup_training_from_file():
             writer.writerow(row)
 
     return savelistsloc
+'''
 
 class NpyDataGenerator(keras.utils.Sequence):
     'Generates data for Keras'
@@ -169,10 +170,91 @@ class NpyDataGenerator(keras.utils.Sequence):
                 (xloc, yloc) = locpair
                 X[i,...] = np.load(xloc)
                 if settings.options.liver:
-                    Y[i,...] = np.load(yloc)
-#                    Y[i,...] = (np.load(yloc) >= 1).astype(settings.SEG_DTYPE)
+#                    Y[i,...] = np.load(yloc)
+                    Y[i,...] = (np.load(yloc) >= 1).astype(settings.SEG_DTYPE)
                 elif settings.options.tumor:
                     Y[i,...] = (np.load(yloc) > 1).astype(settings.SEG_DTYPE)
+
+                # data augmentation - flip up/down
+                # attempting to fix issue with k-fold setup
+                coinflip = np.random.binomial(1,0.5)
+                if coinflip:
+                    X[i,...] = np.flipud(X[i,...])
+                    Y[i,...] = np.flipud(Y[i,...])
+
+            except:
+                X[i,...] = np.zeros((*self.dim, self.n_channels)) - 1.0
+                Y[i,...] = np.zeros((*self.dim, self.n_classes))
+
+        return X, Y
+
+
+
+
+class NpyDataPredictionGenerator(keras.utils.Sequence):
+    'Generates data for Keras'
+    def __init__(self, imgloclist,
+                       segloclist,
+                       batch_size=settings.options.trainingbatch,
+                       dim=(settings.options.trainingresample, settings.options.trainingresample),
+                       n_channels=1,
+                       n_classes=1,
+                       loc_csv=None,
+                       shuffle=False):
+        'Initialization'
+        self.dim = dim
+        self.batch_size = batch_size
+        self.imgloclist = imgloclist
+        self.segloclist = segloclist
+        self.ndata = len(imgloclist)
+        self.n_channels = n_channels
+        self.n_classes = n_classes
+        self.shuffle = shuffle
+        self.loc_csv = loc_csv
+        self.on_epoch_end()
+        self.indexes = np.arange(self.ndata)
+
+    def __len__(self):
+        'Denotes the number of batches per epoch'
+        return int(np.ceil(self.ndata / self.batch_size))
+
+    def __getitem__(self, index):
+        'Generate one batch of data'
+        # Generate indexes of the batch
+        if (index+1)*self.batch_size > self.ndata:
+            indexes = self.indexes[index*self.batch_size:]
+        else:
+            indexes = self.indexes[index*self.batch_size:(index+1)*self.batch_size]
+
+        # Find list of IDs
+        list_x_temp = [self.imgloclist[k] for k in indexes]
+        list_y_temp = [self.segloclist[k] for k in indexes]
+
+        # Generate data
+        X, Y = self.__data_generation(list_x_temp, list_y_temp)
+
+        return X, Y
+
+    def on_epoch_end(self):
+        'Updates indexes after each epoch'
+        self.indexes = np.arange(self.ndata)
+        if self.shuffle == True:
+            np.random.shuffle(self.indexes)
+
+    def __data_generation(self, list_x_temp, list_y_temp):
+        'Generates data containing batch_size samples' # X : (n_samples, *dim, n_channels)
+
+        this_batch_size = min([self.batch_size, len(list_x_temp)])
+        # Initialization
+        X = np.empty((this_batch_size, *self.dim, self.n_channels), dtype=settings.FLOAT_DTYPE)
+        Y = np.empty((this_batch_size, *self.dim, self.n_classes),  dtype=settings.SEG_DTYPE)
+
+        # Generate data
+        for i, locpair in enumerate(zip(list_x_temp, list_y_temp)):
+            try:
+                (xloc, yloc) = locpair
+                X[i,...] = np.load(xloc)
+                Y[i,...] = (np.load(yloc) > 0).astype(settings.SEG_DTYPE)
             except:
                 X[i,...] = np.zeros((*self.dim, self.n_channels)) - 1.0
                 Y[i,...] = np.zeros((*self.dim, self.n_classes))

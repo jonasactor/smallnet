@@ -1,0 +1,521 @@
+Performing setup
+files already generated: using /rsrch1/ip/jacctor/smallnet/tumorhcc-2D/alldata/data/datalocations_liver.txt
+Output to	 ./model-comparisons/unet-pocket-c2Dt/005/002
+kfold: 	 5
+idfold: 	 2
+train_index:	 [  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  79
+  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97
+  98  99 100 101 102 103 104 105 106 107 108 109]
+valid_index:	 [110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127
+ 128 129 130]
+test_index:	 [53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76
+ 77 78]
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            (None, 256, 256, 1)  0                                            
+__________________________________________________________________________________________________
+lambda_1 (Lambda)               (None, 256, 256, 1)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+lambda_2 (Lambda)               (None, 256, 256, 1)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+model_1 (Model)                 (None, 256, 256, 1)  36433       lambda_1[0][0]                   
+                                                                 lambda_2[0][0]                   
+__________________________________________________________________________________________________
+conv2d_16 (Concatenate)         (None, 256, 256, 1)  0           model_1[1][0]                    
+                                                                 model_1[2][0]                    
+==================================================================================================
+Total params: 36,433
+Trainable params: 36,433
+Non-trainable params: 0
+__________________________________________________________________________________________________
+
+
+	livermask training...	Model parameters: 36,433
+Epoch 1/40
+ - 45s - loss: 0.3203 - dsc_l2: 0.3203 - val_loss: 0.2861 - val_dsc_l2: 0.2861
+
+Epoch 00001: val_loss improved from inf to 0.28614, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 2/40
+ - 39s - loss: 0.1974 - dsc_l2: 0.1974 - val_loss: 0.1664 - val_dsc_l2: 0.1664
+
+Epoch 00002: val_loss improved from 0.28614 to 0.16645, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 3/40
+ - 38s - loss: 0.1545 - dsc_l2: 0.1545 - val_loss: 0.1735 - val_dsc_l2: 0.1735
+
+Epoch 00003: val_loss did not improve from 0.16645
+Epoch 4/40
+ - 39s - loss: 0.1289 - dsc_l2: 0.1289 - val_loss: 0.1301 - val_dsc_l2: 0.1301
+
+Epoch 00004: val_loss improved from 0.16645 to 0.13015, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 5/40
+ - 38s - loss: 0.1168 - dsc_l2: 0.1168 - val_loss: 0.1181 - val_dsc_l2: 0.1181
+
+Epoch 00005: val_loss improved from 0.13015 to 0.11808, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 6/40
+ - 38s - loss: 0.1073 - dsc_l2: 0.1073 - val_loss: 0.1080 - val_dsc_l2: 0.1080
+
+Epoch 00006: val_loss improved from 0.11808 to 0.10799, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 7/40
+ - 38s - loss: 0.0993 - dsc_l2: 0.0993 - val_loss: 0.1134 - val_dsc_l2: 0.1134
+
+Epoch 00007: val_loss did not improve from 0.10799
+Epoch 8/40
+ - 39s - loss: 0.0968 - dsc_l2: 0.0968 - val_loss: 0.1358 - val_dsc_l2: 0.1358
+
+Epoch 00008: val_loss did not improve from 0.10799
+Epoch 9/40
+ - 39s - loss: 0.0924 - dsc_l2: 0.0924 - val_loss: 0.1049 - val_dsc_l2: 0.1049
+
+Epoch 00009: val_loss improved from 0.10799 to 0.10486, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 10/40
+ - 38s - loss: 0.0870 - dsc_l2: 0.0870 - val_loss: 0.1128 - val_dsc_l2: 0.1128
+
+Epoch 00010: val_loss did not improve from 0.10486
+Epoch 11/40
+ - 39s - loss: 0.0893 - dsc_l2: 0.0893 - val_loss: 0.1246 - val_dsc_l2: 0.1246
+
+Epoch 00011: val_loss did not improve from 0.10486
+Epoch 12/40
+ - 39s - loss: 0.0852 - dsc_l2: 0.0852 - val_loss: 0.1250 - val_dsc_l2: 0.1250
+
+Epoch 00012: val_loss did not improve from 0.10486
+Epoch 13/40
+ - 38s - loss: 0.0829 - dsc_l2: 0.0829 - val_loss: 0.0987 - val_dsc_l2: 0.0987
+
+Epoch 00013: val_loss improved from 0.10486 to 0.09868, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 14/40
+ - 39s - loss: 0.0792 - dsc_l2: 0.0792 - val_loss: 0.1304 - val_dsc_l2: 0.1304
+
+Epoch 00014: val_loss did not improve from 0.09868
+Epoch 15/40
+ - 38s - loss: 0.0779 - dsc_l2: 0.0779 - val_loss: 0.1164 - val_dsc_l2: 0.1164
+
+Epoch 00015: val_loss did not improve from 0.09868
+Epoch 16/40
+ - 38s - loss: 0.0764 - dsc_l2: 0.0764 - val_loss: 0.1071 - val_dsc_l2: 0.1071
+
+Epoch 00016: val_loss did not improve from 0.09868
+Epoch 17/40
+ - 38s - loss: 0.0776 - dsc_l2: 0.0776 - val_loss: 0.0969 - val_dsc_l2: 0.0969
+
+Epoch 00017: val_loss improved from 0.09868 to 0.09687, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 18/40
+ - 37s - loss: 0.0757 - dsc_l2: 0.0757 - val_loss: 0.1219 - val_dsc_l2: 0.1219
+
+Epoch 00018: val_loss did not improve from 0.09687
+Epoch 19/40
+ - 39s - loss: 0.0721 - dsc_l2: 0.0721 - val_loss: 0.1469 - val_dsc_l2: 0.1469
+
+Epoch 00019: val_loss did not improve from 0.09687
+Epoch 20/40
+ - 38s - loss: 0.0716 - dsc_l2: 0.0716 - val_loss: 0.1101 - val_dsc_l2: 0.1101
+
+Epoch 00020: val_loss did not improve from 0.09687
+Epoch 21/40
+ - 39s - loss: 0.0731 - dsc_l2: 0.0731 - val_loss: 0.1078 - val_dsc_l2: 0.1078
+
+Epoch 00021: val_loss did not improve from 0.09687
+Epoch 22/40
+ - 38s - loss: 0.0707 - dsc_l2: 0.0707 - val_loss: 0.0939 - val_dsc_l2: 0.0939
+
+Epoch 00022: val_loss improved from 0.09687 to 0.09387, saving model to ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+Epoch 23/40
+ - 39s - loss: 0.0706 - dsc_l2: 0.0706 - val_loss: 0.1023 - val_dsc_l2: 0.1023
+
+Epoch 00023: val_loss did not improve from 0.09387
+Epoch 24/40
+ - 39s - loss: 0.0694 - dsc_l2: 0.0694 - val_loss: 0.1200 - val_dsc_l2: 0.1200
+
+Epoch 00024: val_loss did not improve from 0.09387
+Epoch 25/40
+ - 38s - loss: 0.0702 - dsc_l2: 0.0702 - val_loss: 0.1092 - val_dsc_l2: 0.1092
+
+Epoch 00025: val_loss did not improve from 0.09387
+Epoch 26/40
+ - 38s - loss: 0.0708 - dsc_l2: 0.0708 - val_loss: 0.1130 - val_dsc_l2: 0.1130
+
+Epoch 00026: val_loss did not improve from 0.09387
+Epoch 27/40
+ - 38s - loss: 0.0668 - dsc_l2: 0.0668 - val_loss: 0.1134 - val_dsc_l2: 0.1134
+
+Epoch 00027: val_loss did not improve from 0.09387
+Epoch 28/40
+ - 38s - loss: 0.0599 - dsc_l2: 0.0599 - val_loss: 0.1230 - val_dsc_l2: 0.1230
+
+Epoch 00028: val_loss did not improve from 0.09387
+Epoch 29/40
+ - 39s - loss: 0.0590 - dsc_l2: 0.0590 - val_loss: 0.1089 - val_dsc_l2: 0.1089
+
+Epoch 00029: val_loss did not improve from 0.09387
+Epoch 30/40
+ - 39s - loss: 0.0595 - dsc_l2: 0.0595 - val_loss: 0.1030 - val_dsc_l2: 0.1030
+
+Epoch 00030: val_loss did not improve from 0.09387
+Epoch 31/40
+ - 38s - loss: 0.0577 - dsc_l2: 0.0577 - val_loss: 0.1079 - val_dsc_l2: 0.1079
+
+Epoch 00031: val_loss did not improve from 0.09387
+Epoch 32/40
+ - 38s - loss: 0.0579 - dsc_l2: 0.0579 - val_loss: 0.1001 - val_dsc_l2: 0.1001
+
+Epoch 00032: val_loss did not improve from 0.09387
+Epoch 33/40
+ - 38s - loss: 0.0584 - dsc_l2: 0.0584 - val_loss: 0.1180 - val_dsc_l2: 0.1180
+
+Epoch 00033: val_loss did not improve from 0.09387
+Epoch 34/40
+ - 38s - loss: 0.0575 - dsc_l2: 0.0575 - val_loss: 0.1048 - val_dsc_l2: 0.1048
+
+Epoch 00034: val_loss did not improve from 0.09387
+Epoch 35/40
+ - 38s - loss: 0.0569 - dsc_l2: 0.0569 - val_loss: 0.1137 - val_dsc_l2: 0.1137
+
+Epoch 00035: val_loss did not improve from 0.09387
+Epoch 36/40
+ - 38s - loss: 0.0557 - dsc_l2: 0.0557 - val_loss: 0.1197 - val_dsc_l2: 0.1197
+
+Epoch 00036: val_loss did not improve from 0.09387
+Epoch 37/40
+ - 38s - loss: 0.0531 - dsc_l2: 0.0531 - val_loss: 0.1120 - val_dsc_l2: 0.1120
+
+Epoch 00037: val_loss did not improve from 0.09387
+Epoch 38/40
+ - 38s - loss: 0.0524 - dsc_l2: 0.0524 - val_loss: 0.1162 - val_dsc_l2: 0.1162
+
+Epoch 00038: val_loss did not improve from 0.09387
+Epoch 39/40
+ - 39s - loss: 0.0519 - dsc_l2: 0.0519 - val_loss: 0.1043 - val_dsc_l2: 0.1043
+
+Epoch 00039: val_loss did not improve from 0.09387
+Epoch 40/40
+ - 39s - loss: 0.0517 - dsc_l2: 0.0517 - val_loss: 0.1066 - val_dsc_l2: 0.1066
+
+Epoch 00040: val_loss did not improve from 0.09387
+kfold: 	 5
+idfold: 	 2
+train_index:	 [  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17
+  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
+  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  79
+  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97
+  98  99 100 101 102 103 104 105 106 107 108 109]
+valid_index:	 [110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127
+ 128 129 130]
+test_index:	 [53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76
+ 77 78]
+loading model from ./model-comparisons/unet-pocket-c2Dt/005/002/liver/modelunet.h5
+loading data from  /rsrch1/ip/jacctor/smallnet/tumorhcc-2D/alldata/data/datalocations.txt
+
+Image 53
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.08998068648151977
++ 	DSC-L2 3D        (int) :	 0.10621048565790238
++ 	DSC-L2 3D LCC    (int) :	 0.07657545832085341
++ 	DSC-L2 2D AVG  (float) :	 0.6604251903407352
++ 	DSC-L2 2D AVG    (int) :	 0.3804725086600793
+
+Image 54
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.07376675733740545
++ 	DSC-L2 3D        (int) :	 0.0933584361480158
++ 	DSC-L2 3D LCC    (int) :	 0.03658142069057899
++ 	DSC-L2 2D AVG  (float) :	 0.7328967632363314
++ 	DSC-L2 2D AVG    (int) :	 0.47630552011221017
+
+Image 55
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.2360670624249202
++ 	DSC-L2 3D        (int) :	 0.27657329117745494
++ 	DSC-L2 3D LCC    (int) :	 0.10839107249500451
++ 	DSC-L2 2D AVG  (float) :	 0.6306328843041027
++ 	DSC-L2 2D AVG    (int) :	 0.6367157142844396
+
+Image 56
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.15106093100043066
++ 	DSC-L2 3D        (int) :	 0.16138594102177234
++ 	DSC-L2 3D LCC    (int) :	 0.11141839531305209
++ 	DSC-L2 2D AVG  (float) :	 0.678714585306111
++ 	DSC-L2 2D AVG    (int) :	 0.48563849958350436
+
+Image 57
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.10364217645082724
++ 	DSC-L2 3D        (int) :	 0.13085975474676764
++ 	DSC-L2 3D LCC    (int) :	 0.045329836939977775
++ 	DSC-L2 2D AVG  (float) :	 0.6204305864237658
++ 	DSC-L2 2D AVG    (int) :	 0.5771018942058179
+
+Image 58
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.06863467089826578
++ 	DSC-L2 3D        (int) :	 0.0878250713110772
++ 	DSC-L2 3D LCC    (int) :	 0.035195587097636274
++ 	DSC-L2 2D AVG  (float) :	 0.6333789827821088
++ 	DSC-L2 2D AVG    (int) :	 0.44743698486026057
+
+Image 59
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.08603709034000799
++ 	DSC-L2 3D        (int) :	 0.10834770633175612
++ 	DSC-L2 3D LCC    (int) :	 0.03804769262988147
++ 	DSC-L2 2D AVG  (float) :	 0.6693640893083415
++ 	DSC-L2 2D AVG    (int) :	 0.470256407638174
+
+Image 60
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.045779618620936526
++ 	DSC-L2 3D        (int) :	 0.05595286053848434
++ 	DSC-L2 3D LCC    (int) :	 0.0385460598296148
++ 	DSC-L2 2D AVG  (float) :	 0.6970097644891023
++ 	DSC-L2 2D AVG    (int) :	 0.4824688590578482
+
+Image 61
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.13626337721931858
++ 	DSC-L2 3D        (int) :	 0.1667607526415936
++ 	DSC-L2 3D LCC    (int) :	 0.08036192107152788
++ 	DSC-L2 2D AVG  (float) :	 0.7406261497129545
++ 	DSC-L2 2D AVG    (int) :	 0.6088280273004306
+
+Image 62
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.04851759478800306
++ 	DSC-L2 3D        (int) :	 0.06180846555863303
++ 	DSC-L2 3D LCC    (int) :	 0.03739085276747301
++ 	DSC-L2 2D AVG  (float) :	 0.5606976819470846
++ 	DSC-L2 2D AVG    (int) :	 0.3508001612163866
+
+Image 63
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.07973284838333347
++ 	DSC-L2 3D        (int) :	 0.09932291332814942
++ 	DSC-L2 3D LCC    (int) :	 0.06445339192411774
++ 	DSC-L2 2D AVG  (float) :	 0.6812900205371999
++ 	DSC-L2 2D AVG    (int) :	 0.5049980661424845
+
+Image 64
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.11743737813665944
++ 	DSC-L2 3D        (int) :	 0.13138405241575615
++ 	DSC-L2 3D LCC    (int) :	 0.08773299790638636
++ 	DSC-L2 2D AVG  (float) :	 0.5922409080073792
++ 	DSC-L2 2D AVG    (int) :	 0.48921118150509246
+
+Image 65
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.059532008698999175
++ 	DSC-L2 3D        (int) :	 0.07455018014414046
++ 	DSC-L2 3D LCC    (int) :	 0.04961413694370686
++ 	DSC-L2 2D AVG  (float) :	 0.6786873078262019
++ 	DSC-L2 2D AVG    (int) :	 0.4883333222232496
+
+Image 66
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.10676350670062197
++ 	DSC-L2 3D        (int) :	 0.13056182911300362
++ 	DSC-L2 3D LCC    (int) :	 0.042229040779561196
++ 	DSC-L2 2D AVG  (float) :	 0.6219385586526507
++ 	DSC-L2 2D AVG    (int) :	 0.5209367026625296
+
+Image 67
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.09845576261395582
++ 	DSC-L2 3D        (int) :	 0.11885387984467936
++ 	DSC-L2 3D LCC    (int) :	 0.0443083452928571
++ 	DSC-L2 2D AVG  (float) :	 0.578105524905809
++ 	DSC-L2 2D AVG    (int) :	 0.42218695297699005
+
+Image 68
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.0984416268654421
++ 	DSC-L2 3D        (int) :	 0.12267715520018656
++ 	DSC-L2 3D LCC    (int) :	 0.07222069736793768
++ 	DSC-L2 2D AVG  (float) :	 0.805757379241242
++ 	DSC-L2 2D AVG    (int) :	 0.5852239427948569
+
+Image 69
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.05052808399121184
++ 	DSC-L2 3D        (int) :	 0.061524183718517866
++ 	DSC-L2 3D LCC    (int) :	 0.03884174766877227
++ 	DSC-L2 2D AVG  (float) :	 0.6268181207738368
++ 	DSC-L2 2D AVG    (int) :	 0.46690699223861565
+
+Image 70
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.10761771288137904
++ 	DSC-L2 3D        (int) :	 0.12331717018530058
++ 	DSC-L2 3D LCC    (int) :	 0.1096927292918367
++ 	DSC-L2 2D AVG  (float) :	 0.701267785036494
++ 	DSC-L2 2D AVG    (int) :	 0.4592631003606775
+
+Image 71
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.2297189994023714
++ 	DSC-L2 3D        (int) :	 0.2571492011973463
++ 	DSC-L2 3D LCC    (int) :	 0.11022969239178056
++ 	DSC-L2 2D AVG  (float) :	 0.6755304776879018
++ 	DSC-L2 2D AVG    (int) :	 0.6169034480101117
+
+Image 72
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.05842552344294277
++ 	DSC-L2 3D        (int) :	 0.07178244017302002
++ 	DSC-L2 3D LCC    (int) :	 0.055965907179798595
++ 	DSC-L2 2D AVG  (float) :	 0.4153762931246041
++ 	DSC-L2 2D AVG    (int) :	 0.4024150831713029
+
+Image 73
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.10962617088575176
++ 	DSC-L2 3D        (int) :	 0.1392236547084714
++ 	DSC-L2 3D LCC    (int) :	 0.10228211067831144
++ 	DSC-L2 2D AVG  (float) :	 0.6332486964939635
++ 	DSC-L2 2D AVG    (int) :	 0.5161994539662677
+
+Image 74
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.24415307597995567
++ 	DSC-L2 3D        (int) :	 0.278731015730192
++ 	DSC-L2 3D LCC    (int) :	 0.1666954012429824
++ 	DSC-L2 2D AVG  (float) :	 0.7528594784496125
++ 	DSC-L2 2D AVG    (int) :	 0.6634219980655325
+
+Image 75
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.08506740350794018
++ 	DSC-L2 3D        (int) :	 0.10137356871338242
++ 	DSC-L2 3D LCC    (int) :	 0.0723257029659136
++ 	DSC-L2 2D AVG  (float) :	 0.611511586578125
++ 	DSC-L2 2D AVG    (int) :	 0.5149931790401364
+
+Image 76
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.09981204512847294
++ 	DSC-L2 3D        (int) :	 0.10703953954580492
++ 	DSC-L2 3D LCC    (int) :	 0.09117002273982598
++ 	DSC-L2 2D AVG  (float) :	 0.6018438074470193
++ 	DSC-L2 2D AVG    (int) :	 0.414363930051028
+
+Image 77
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.10293232805388146
++ 	DSC-L2 3D        (int) :	 0.12611539944657038
++ 	DSC-L2 3D LCC    (int) :	 0.08603094169765813
++ 	DSC-L2 2D AVG  (float) :	 0.6701431268461443
++ 	DSC-L2 2D AVG    (int) :	 0.4669456105700636
+
+Image 78
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/unet-pocket-c2Dt/005/002/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.33373511423646146
++ 	DSC-L2 3D        (int) :	 0.38391141389292804
++ 	DSC-L2 3D LCC    (int) :	 0.14074351896886786
++ 	DSC-L2 2D AVG  (float) :	 0.750637478884183
++ 	DSC-L2 2D AVG    (int) :	 0.7396409130517915

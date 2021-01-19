@@ -23,11 +23,11 @@ from setupmodel import GetSetupKfolds
 from setupmodel import GetOptimizer, GetLoss
 from buildmodel import get_unet
 from mymetrics import dsc_l2
-from mymetrics import dsc_l2_npy, dsc_l2_liver_npy, dsc_l2_tumor_npy, dsc_l2_background_npy
+from mymetrics import dsc_l2_3D_npy, dsc_l2_2D_avg_npy
 from ista import ISTA
 from DepthwiseConv3D import DepthwiseConv3D
 import preprocess
-from generator import NpyDataGenerator
+from generator import NpyDataGenerator, NpyDataPredictionGenerator
 
 
 def PredictNpy(model, imagedata):
@@ -175,33 +175,48 @@ def PredictKFold(modelloc, dbfile, outdir, kfolds=settings.options.kfolds, idfol
     test_xlist = [row[1] for row in testingsubset]
     test_ylist = [row[2] for row in testingsubset]
 
-    test_generator = NpyDataGenerator(test_xlist, test_ylist)
-    
-#    predictions = loaded_model.predict_generator(test_generator)
-    evaluations = loaded_model.evaluate_generator(test_generator)
-    print('\nGlobal test metrics:')
-    print(loaded_model.metrics_names)
-    print(evaluations)
-
     for idx in test_index:
+        print('\nImage', idx)
+        print('gathering image data...')
         this_img_subset = [row for row in loclist if int(row[0]) == idx]
         this_img_xlist  = [row[1] for row in this_img_subset]
         this_img_ylist  = [row[2] for row in this_img_subset]
 
-        this_img_generator   = NpyDataGenerator(this_img_xlist, this_img_ylist)
-        this_img_evaluations = loaded_model.evaluate_generator(this_img_generator)
-        print('\nImage', idx, 'test metrics:')
-        print(this_img_evaluations)
+        img_in = np.empty((len(this_img_xlist), settings.options.trainingresample, settings.options.trainingresample, 1), dtype=settings.FLOAT_DTYPE)
+        seg_in = np.empty((len(this_img_ylist), settings.options.trainingresample, settings.options.trainingresample, 1), dtype=settings.SEG_DTYPE)
+        for iii in range(len(this_img_xlist)):
+            img_in[iii,...] = np.load(this_img_xlist[iii])
+            seg_in[iii,...] = np.load(this_img_ylist[iii])
 
-#    with open(settings.options.dbfile, 'r') as csvfile:
-#        myreader = csv.DictReader(csvfile, delimiter=',')
-#        for row in myreader:
-#            dataid = int(row['dataid'])
-#            if dataid in test_index:
-#                imageloc   = '%s/%s' % (settings.options.rootlocation, row['image'])
-#                segloc     = '%s/%s' % (settings.options.rootlocation, row['label'])
-#                saveloc    = savedir+'/pred-'+str(dataid)
-#                PredictNifti(loaded_model, saveloc, imageloc, segloc=segloc)
+        print('creating generator and performing prediction...')
+        this_img_generator   = NpyDataPredictionGenerator(this_img_xlist, this_img_ylist, batch_size=8)
+        this_img_predictions = loaded_model.predict_generator(this_img_generator)
+        this_seg = (this_img_predictions > 0.5).astype(settings.SEG_DTYPE)
+
+        print('generating largest connected component...')
+        this_lcc = preprocess.largest_connected_component(this_seg[...,0]).astype(settings.SEG_DTYPE)[...,np.newaxis]
+
+        print('saving data to', savedir)
+        this_seg_nifti = nib.Nifti1Image(this_seg[...,0], None)
+        this_seg_nifti.to_filename(savedir+'/pred-'+str(idx)+'-int.nii')
+        this_out_nifti = nib.Nifti1Image(this_img_predictions[...,0], None)
+        this_out_nifti.to_filename(savedir+'/pred-'+str(idx)+'-float.nii')
+        this_img_nifti = nib.Nifti1Image(img_in[...,0], None)
+        this_img_nifti.to_filename(savedir+'/img-'+str(idx)+'.nii')
+        this_tru_nifti = nib.Nifti1Image(seg_in[...,0], None)
+        this_tru_nifti.to_filename(savedir+'/seg-'+str(idx)+'.nii')
+        this_lcc_nifti = nib.Nifti1Image(this_lcc[...,0], None)
+        this_lcc_nifti.to_filename(savedir+'/pred-'+str(idx)+'-lcc.nii')
+
+        print('calculating metrics...')
+        print('+ \tDSC-L2 3D      (float) :\t', dsc_l2_3D_npy(seg_in, this_img_predictions))
+        print('+ \tDSC-L2 3D        (int) :\t', dsc_l2_3D_npy(seg_in, this_seg))
+        print('+ \tDSC-L2 3D LCC    (int) :\t', dsc_l2_3D_npy(seg_in, this_lcc))
+        print('+ \tDSC-L2 2D AVG  (float) :\t', dsc_l2_2D_avg_npy(seg_in, this_img_predictions))
+        print('+ \tDSC-L2 2D AVG    (int) :\t', dsc_l2_2D_avg_npy(seg_in, this_seg))
+
+
+
 
 
 def PredictCSV(modelloc, outdir, indir=settings.options.dbfile):

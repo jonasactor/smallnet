@@ -1,0 +1,535 @@
+Performing setup
+files already generated: using /rsrch1/ip/jacctor/smallnet/tumorhcc-2D/alldata/data/datalocations_liver.txt
+Output to	 ./model-comparisons/densenet/005/000
+kfold: 	 5
+idfold: 	 0
+train_index:	 [ 27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44
+  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62
+  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80
+  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98
+  99 100 101 102 103 104 105 106 107 108 109]
+valid_index:	 [110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127
+ 128 129 130]
+test_index:	 [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26]
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_1 (InputLayer)            (None, 256, 256, 1)  0                                            
+__________________________________________________________________________________________________
+lambda_1 (Lambda)               (None, 256, 256, 1)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+lambda_2 (Lambda)               (None, 256, 256, 1)  0           input_1[0][0]                    
+__________________________________________________________________________________________________
+model_1 (Model)                 (None, 256, 256, 1)  604337      lambda_1[0][0]                   
+                                                                 lambda_2[0][0]                   
+__________________________________________________________________________________________________
+conv2d_29 (Concatenate)         (None, 256, 256, 1)  0           model_1[1][0]                    
+                                                                 model_1[2][0]                    
+==================================================================================================
+Total params: 604,337
+Trainable params: 604,337
+Non-trainable params: 0
+__________________________________________________________________________________________________
+
+
+	livermask training...	Model parameters: 604,337
+Epoch 1/40
+ - 108s - loss: 0.5021 - dsc_l2: 0.5021 - val_loss: 0.8719 - val_dsc_l2: 0.8719
+
+Epoch 00001: val_loss improved from inf to 0.87187, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 2/40
+ - 97s - loss: 0.8831 - dsc_l2: 0.8831 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00002: val_loss did not improve from 0.87187
+Epoch 3/40
+ - 97s - loss: 0.8831 - dsc_l2: 0.8831 - val_loss: 0.8720 - val_dsc_l2: 0.8720
+
+Epoch 00003: val_loss did not improve from 0.87187
+Epoch 4/40
+ - 98s - loss: 0.8830 - dsc_l2: 0.8830 - val_loss: 0.8721 - val_dsc_l2: 0.8721
+
+Epoch 00004: val_loss did not improve from 0.87187
+Epoch 5/40
+ - 98s - loss: 0.9546 - dsc_l2: 0.9546 - val_loss: 1.0000 - val_dsc_l2: 1.0000
+
+Epoch 00005: val_loss did not improve from 0.87187
+Epoch 6/40
+ - 97s - loss: 1.0000 - dsc_l2: 1.0000 - val_loss: 1.0000 - val_dsc_l2: 1.0000
+
+Epoch 00006: val_loss did not improve from 0.87187
+Epoch 7/40
+ - 99s - loss: 1.0000 - dsc_l2: 1.0000 - val_loss: 1.0000 - val_dsc_l2: 1.0000
+
+Epoch 00007: val_loss did not improve from 0.87187
+Epoch 8/40
+ - 98s - loss: 1.0000 - dsc_l2: 1.0000 - val_loss: 1.0000 - val_dsc_l2: 1.0000
+
+Epoch 00008: val_loss did not improve from 0.87187
+Epoch 9/40
+ - 97s - loss: 0.6393 - dsc_l2: 0.6393 - val_loss: 0.1952 - val_dsc_l2: 0.1952
+
+Epoch 00009: val_loss improved from 0.87187 to 0.19524, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 10/40
+ - 97s - loss: 0.1743 - dsc_l2: 0.1743 - val_loss: 0.1561 - val_dsc_l2: 0.1561
+
+Epoch 00010: val_loss improved from 0.19524 to 0.15614, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 11/40
+ - 96s - loss: 0.1380 - dsc_l2: 0.1380 - val_loss: 0.1320 - val_dsc_l2: 0.1320
+
+Epoch 00011: val_loss improved from 0.15614 to 0.13196, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 12/40
+ - 96s - loss: 0.1088 - dsc_l2: 0.1088 - val_loss: 0.1179 - val_dsc_l2: 0.1179
+
+Epoch 00012: val_loss improved from 0.13196 to 0.11788, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 13/40
+ - 96s - loss: 0.0939 - dsc_l2: 0.0939 - val_loss: 0.1145 - val_dsc_l2: 0.1145
+
+Epoch 00013: val_loss improved from 0.11788 to 0.11453, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 14/40
+ - 96s - loss: 0.0873 - dsc_l2: 0.0873 - val_loss: 0.1121 - val_dsc_l2: 0.1121
+
+Epoch 00014: val_loss improved from 0.11453 to 0.11212, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 15/40
+ - 95s - loss: 0.0808 - dsc_l2: 0.0808 - val_loss: 0.1066 - val_dsc_l2: 0.1066
+
+Epoch 00015: val_loss improved from 0.11212 to 0.10662, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 16/40
+ - 95s - loss: 0.0759 - dsc_l2: 0.0759 - val_loss: 0.1003 - val_dsc_l2: 0.1003
+
+Epoch 00016: val_loss improved from 0.10662 to 0.10025, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 17/40
+ - 95s - loss: 0.0689 - dsc_l2: 0.0689 - val_loss: 0.1335 - val_dsc_l2: 0.1335
+
+Epoch 00017: val_loss did not improve from 0.10025
+Epoch 18/40
+ - 95s - loss: 0.0659 - dsc_l2: 0.0659 - val_loss: 0.1086 - val_dsc_l2: 0.1086
+
+Epoch 00018: val_loss did not improve from 0.10025
+Epoch 19/40
+
+Epoch 00017: val_loss did not improve from 0.10025
+ - 95s - loss: 0.0610 - dsc_l2: 0.0610 - val_loss: 0.1211 - val_dsc_l2: 0.1211
+
+Epoch 00019: val_loss did not improve from 0.10025
+Epoch 20/40
+ - 98s - loss: 0.0591 - dsc_l2: 0.0591 - val_loss: 0.1167 - val_dsc_l2: 0.1167
+
+Epoch 00020: val_loss did not improve from 0.10025
+Epoch 21/40
+ - 97s - loss: 0.0570 - dsc_l2: 0.0570 - val_loss: 0.1360 - val_dsc_l2: 0.1360
+
+Epoch 00021: val_loss did not improve from 0.10025
+Epoch 22/40
+ - 99s - loss: 0.0494 - dsc_l2: 0.0494 - val_loss: 0.0996 - val_dsc_l2: 0.0996
+
+Epoch 00022: val_loss improved from 0.10025 to 0.09960, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 23/40
+ - 97s - loss: 0.0464 - dsc_l2: 0.0464 - val_loss: 0.0982 - val_dsc_l2: 0.0982
+
+Epoch 00023: val_loss improved from 0.09960 to 0.09819, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 24/40
+ - 96s - loss: 0.0462 - dsc_l2: 0.0462 - val_loss: 0.1006 - val_dsc_l2: 0.1006
+
+Epoch 00024: val_loss did not improve from 0.09819
+Epoch 25/40
+ - 97s - loss: 0.0462 - dsc_l2: 0.0462 - val_loss: 0.0947 - val_dsc_l2: 0.0947
+
+Epoch 00025: val_loss improved from 0.09819 to 0.09468, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 26/40
+ - 96s - loss: 0.0445 - dsc_l2: 0.0445 - val_loss: 0.0929 - val_dsc_l2: 0.0929
+
+Epoch 00026: val_loss improved from 0.09468 to 0.09288, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 27/40
+ - 97s - loss: 0.0454 - dsc_l2: 0.0454 - val_loss: 0.1003 - val_dsc_l2: 0.1003
+
+Epoch 00027: val_loss did not improve from 0.09288
+Epoch 28/40
+ - 96s - loss: 0.0444 - dsc_l2: 0.0444 - val_loss: 0.1110 - val_dsc_l2: 0.1110
+
+Epoch 00028: val_loss did not improve from 0.09288
+Epoch 29/40
+ - 95s - loss: 0.0419 - dsc_l2: 0.0419 - val_loss: 0.1185 - val_dsc_l2: 0.1185
+
+Epoch 00029: val_loss did not improve from 0.09288
+Epoch 30/40
+ - 96s - loss: 0.0416 - dsc_l2: 0.0416 - val_loss: 0.1058 - val_dsc_l2: 0.1058
+
+Epoch 00030: val_loss did not improve from 0.09288
+Epoch 31/40
+ - 95s - loss: 0.0428 - dsc_l2: 0.0428 - val_loss: 0.0954 - val_dsc_l2: 0.0954
+
+Epoch 00031: val_loss did not improve from 0.09288
+Epoch 32/40
+ - 95s - loss: 0.0392 - dsc_l2: 0.0392 - val_loss: 0.0907 - val_dsc_l2: 0.0907
+
+Epoch 00032: val_loss improved from 0.09288 to 0.09070, saving model to ./model-comparisons/densenet/005/000/liver/modelunet.h5
+Epoch 33/40
+ - 97s - loss: 0.0382 - dsc_l2: 0.0382 - val_loss: 0.1051 - val_dsc_l2: 0.1051
+
+Epoch 00033: val_loss did not improve from 0.09070
+Epoch 34/40
+ - 97s - loss: 0.0381 - dsc_l2: 0.0381 - val_loss: 0.1059 - val_dsc_l2: 0.1059
+
+Epoch 00034: val_loss did not improve from 0.09070
+Epoch 35/40
+ - 95s - loss: 0.0368 - dsc_l2: 0.0368 - val_loss: 0.1065 - val_dsc_l2: 0.1065
+
+Epoch 00035: val_loss did not improve from 0.09070
+Epoch 36/40
+ - 95s - loss: 0.0363 - dsc_l2: 0.0363 - val_loss: 0.1010 - val_dsc_l2: 0.1010
+
+Epoch 00036: val_loss did not improve from 0.09070
+Epoch 37/40
+ - 96s - loss: 0.0361 - dsc_l2: 0.0361 - val_loss: 0.1105 - val_dsc_l2: 0.1105
+
+Epoch 00037: val_loss did not improve from 0.09070
+Epoch 38/40
+ - 96s - loss: 0.0369 - dsc_l2: 0.0369 - val_loss: 0.1008 - val_dsc_l2: 0.1008
+
+Epoch 00038: val_loss did not improve from 0.09070
+Epoch 39/40
+ - 95s - loss: 0.0350 - dsc_l2: 0.0350 - val_loss: 0.1089 - val_dsc_l2: 0.1089
+
+Epoch 00039: val_loss did not improve from 0.09070
+Epoch 40/40
+ - 98s - loss: 0.0349 - dsc_l2: 0.0349 - val_loss: 0.1007 - val_dsc_l2: 0.1007
+
+Epoch 00040: val_loss did not improve from 0.09070
+kfold: 	 5
+idfold: 	 0
+train_index:	 [ 27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44
+  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62
+  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80
+  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98
+  99 100 101 102 103 104 105 106 107 108 109]
+valid_index:	 [110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127
+ 128 129 130]
+test_index:	 [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26]
+loading model from ./model-comparisons/densenet/005/000/liver/modelunet.h5
+loading data from  /rsrch1/ip/jacctor/smallnet/tumorhcc-2D/alldata/data/datalocations.txt
+
+Image 0
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.0663873752421359
++ 	DSC-L2 3D        (int) :	 0.07935086294010765
++ 	DSC-L2 3D LCC    (int) :	 0.05175292153587203
++ 	DSC-L2 2D AVG  (float) :	 0.6563622832825605
++ 	DSC-L2 2D AVG    (int) :	 0.42181717256827694
+
+Image 1
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.10129456901319248
++ 	DSC-L2 3D        (int) :	 0.12103068329631156
++ 	DSC-L2 3D LCC    (int) :	 0.05627877522376426
++ 	DSC-L2 2D AVG  (float) :	 0.7925594348135248
++ 	DSC-L2 2D AVG    (int) :	 0.5614305472524367
+
+Image 2
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.1303645616267332
++ 	DSC-L2 3D        (int) :	 0.14558006579380833
++ 	DSC-L2 3D LCC    (int) :	 0.12532190791967493
++ 	DSC-L2 2D AVG  (float) :	 0.773375301227304
++ 	DSC-L2 2D AVG    (int) :	 0.4102799040611913
+
+Image 3
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.11636652383982736
++ 	DSC-L2 3D        (int) :	 0.13579081814522959
++ 	DSC-L2 3D LCC    (int) :	 0.03332839979752003
++ 	DSC-L2 2D AVG  (float) :	 0.7090604008487923
++ 	DSC-L2 2D AVG    (int) :	 0.44523905040173734
+
+Image 4
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.16510167070601706
++ 	DSC-L2 3D        (int) :	 0.17279133902330823
++ 	DSC-L2 3D LCC    (int) :	 0.1572171208938921
++ 	DSC-L2 2D AVG  (float) :	 0.7939240078468776
++ 	DSC-L2 2D AVG    (int) :	 0.3629129708209056
+
+Image 5
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.061008758879779544
++ 	DSC-L2 3D        (int) :	 0.07489204166622773
++ 	DSC-L2 3D LCC    (int) :	 0.04866981909350235
++ 	DSC-L2 2D AVG  (float) :	 0.7277266144621986
++ 	DSC-L2 2D AVG    (int) :	 0.13723372312176432
+
+Image 6
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.03492765588710745
++ 	DSC-L2 3D        (int) :	 0.04391127847755914
++ 	DSC-L2 3D LCC    (int) :	 0.03967209355855812
++ 	DSC-L2 2D AVG  (float) :	 0.6611278343936793
++ 	DSC-L2 2D AVG    (int) :	 0.20162711757265483
+
+Image 7
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.06572048370062665
++ 	DSC-L2 3D        (int) :	 0.07914943238329876
++ 	DSC-L2 3D LCC    (int) :	 0.04389470173948173
++ 	DSC-L2 2D AVG  (float) :	 0.6981394864858225
++ 	DSC-L2 2D AVG    (int) :	 0.2996011796675555
+
+Image 8
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.05198792360669839
++ 	DSC-L2 3D        (int) :	 0.06480328213934243
++ 	DSC-L2 3D LCC    (int) :	 0.056205492318334146
++ 	DSC-L2 2D AVG  (float) :	 0.6945402315919932
++ 	DSC-L2 2D AVG    (int) :	 0.23900611937907312
+
+Image 9
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.05490131231919337
++ 	DSC-L2 3D        (int) :	 0.06752646859456538
++ 	DSC-L2 3D LCC    (int) :	 0.05355334942348425
++ 	DSC-L2 2D AVG  (float) :	 0.7104735998719502
++ 	DSC-L2 2D AVG    (int) :	 0.29765319764709874
+
+Image 10
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.04209767545361054
++ 	DSC-L2 3D        (int) :	 0.05210122744969447
++ 	DSC-L2 3D LCC    (int) :	 0.038649593602573425
++ 	DSC-L2 2D AVG  (float) :	 0.6622946715252761
++ 	DSC-L2 2D AVG    (int) :	 0.28113429194278217
+
+Image 11
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.14128902695031298
++ 	DSC-L2 3D        (int) :	 0.15611137619830576
++ 	DSC-L2 3D LCC    (int) :	 0.13811371437098136
++ 	DSC-L2 2D AVG  (float) :	 0.6858311963785184
++ 	DSC-L2 2D AVG    (int) :	 0.34888508702942894
+
+Image 12
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.1212731280706501
++ 	DSC-L2 3D        (int) :	 0.14300941441565565
++ 	DSC-L2 3D LCC    (int) :	 0.0404574257148382
++ 	DSC-L2 2D AVG  (float) :	 0.6157656741258475
++ 	DSC-L2 2D AVG    (int) :	 0.5031780996532621
+
+Image 13
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.07771294949329803
++ 	DSC-L2 3D        (int) :	 0.09173546053240751
++ 	DSC-L2 3D LCC    (int) :	 0.07666247011725859
++ 	DSC-L2 2D AVG  (float) :	 0.8301106699304827
++ 	DSC-L2 2D AVG    (int) :	 0.2553664406021555
+
+Image 14
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.0622096973956187
++ 	DSC-L2 3D        (int) :	 0.07601931407338257
++ 	DSC-L2 3D LCC    (int) :	 0.03425062140249801
++ 	DSC-L2 2D AVG  (float) :	 0.7789066448400417
++ 	DSC-L2 2D AVG    (int) :	 0.5513452529119929
+
+Image 15
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.06789878469525111
++ 	DSC-L2 3D        (int) :	 0.08494771587544853
++ 	DSC-L2 3D LCC    (int) :	 0.04708049301108275
++ 	DSC-L2 2D AVG  (float) :	 0.7839156650998351
++ 	DSC-L2 2D AVG    (int) :	 0.49283428609837365
+
+Image 16
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.07333862020489014
++ 	DSC-L2 3D        (int) :	 0.08297968651216625
++ 	DSC-L2 3D LCC    (int) :	 0.06821715053801475
++ 	DSC-L2 2D AVG  (float) :	 0.7541610308564772
++ 	DSC-L2 2D AVG    (int) :	 0.30042366044634333
+
+Image 17
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.12596427585623982
++ 	DSC-L2 3D        (int) :	 0.1389383921424906
++ 	DSC-L2 3D LCC    (int) :	 0.03626134711221957
++ 	DSC-L2 2D AVG  (float) :	 0.7862038340491807
++ 	DSC-L2 2D AVG    (int) :	 0.342802600124241
+
+Image 18
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.05260119527112871
++ 	DSC-L2 3D        (int) :	 0.0630648935336081
++ 	DSC-L2 3D LCC    (int) :	 0.03455212858680195
++ 	DSC-L2 2D AVG  (float) :	 0.7937810450726019
++ 	DSC-L2 2D AVG    (int) :	 0.2189499348277085
+
+Image 19
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.06061840907211895
++ 	DSC-L2 3D        (int) :	 0.0744403541507588
++ 	DSC-L2 3D LCC    (int) :	 0.03727896276583621
++ 	DSC-L2 2D AVG  (float) :	 0.6822446372528141
++ 	DSC-L2 2D AVG    (int) :	 0.2899506624418845
+
+Image 20
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.05171090728503564
++ 	DSC-L2 3D        (int) :	 0.064430682776585
++ 	DSC-L2 3D LCC    (int) :	 0.04588218734183006
++ 	DSC-L2 2D AVG  (float) :	 0.6929988903814113
++ 	DSC-L2 2D AVG    (int) :	 0.2851159594326043
+
+Image 21
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.10774368079305142
++ 	DSC-L2 3D        (int) :	 0.1216530020473105
++ 	DSC-L2 3D LCC    (int) :	 0.03975951826112929
++ 	DSC-L2 2D AVG  (float) :	 0.6195142639156711
++ 	DSC-L2 2D AVG    (int) :	 0.3781970839181655
+
+Image 22
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.20461004220410367
++ 	DSC-L2 3D        (int) :	 0.23498582911293267
++ 	DSC-L2 3D LCC    (int) :	 0.11115070238513429
++ 	DSC-L2 2D AVG  (float) :	 0.8806574396482763
++ 	DSC-L2 2D AVG    (int) :	 0.4009818520179583
+
+Image 23
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.2694863563574974
++ 	DSC-L2 3D        (int) :	 0.2919479634560528
++ 	DSC-L2 3D LCC    (int) :	 0.2118329167101553
++ 	DSC-L2 2D AVG  (float) :	 0.7579818188199602
++ 	DSC-L2 2D AVG    (int) :	 0.5330344926097741
+
+Image 24
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.08920493899090175
++ 	DSC-L2 3D        (int) :	 0.10674889507188484
++ 	DSC-L2 3D LCC    (int) :	 0.04821960364771161
++ 	DSC-L2 2D AVG  (float) :	 0.6244213683908321
++ 	DSC-L2 2D AVG    (int) :	 0.46614275476508255
+
+Image 25
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.04709596751059804
++ 	DSC-L2 3D        (int) :	 0.05848717144756564
++ 	DSC-L2 3D LCC    (int) :	 0.04765991755419102
++ 	DSC-L2 2D AVG  (float) :	 0.6581489649042847
++ 	DSC-L2 2D AVG    (int) :	 0.2477401964085453
+
+Image 26
+gathering image data...
+creating generator and performing prediction...
+generating largest connected component...
+saving data to ./model-comparisons/densenet/005/000/predictions
+calculating metrics...
++ 	DSC-L2 3D      (float) :	 0.03401840806622303
++ 	DSC-L2 3D        (int) :	 0.040729195770032645
++ 	DSC-L2 3D LCC    (int) :	 0.038161327828177154
++ 	DSC-L2 2D AVG  (float) :	 0.7312508727336496
++ 	DSC-L2 2D AVG    (int) :	 0.1316823775708273

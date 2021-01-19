@@ -7,7 +7,12 @@ from predictmodel import PredictKFold
 ################################
 def OneKfold(i=0, saveloclist=None):
     modelloc = TrainModel(idfold=i, saveloclist=saveloclist)
-    PredictKFold(modelloc, settings.options.dbfile, settings.options.outdir, kfolds=settings.options.kfolds, idfold=i, saveloclist=saveloclist)
+    PredictKFold(modelloc, 
+            settings.options.dbfile, 
+            settings.options.outdir, 
+            kfolds=settings.options.kfolds, 
+            idfold=i, 
+            saveloclist=settings.options.datafiles_all)
 
 def Kfold(saveloclist=None):
     for iii in range(settings.options.kfolds):

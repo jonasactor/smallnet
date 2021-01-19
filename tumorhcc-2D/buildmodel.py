@@ -16,7 +16,7 @@ import settings
 from ista import ISTA
 
 
-def Block(model_in, filters=settings.options.filters, add=True, drop=True, use_depthwise=settings.options.depthwise):
+def ConvBlock(model_in, filters=settings.options.filters, add=True, drop=True, use_depthwise=settings.options.depthwise):
     kreg = None
     wreg = None
     if settings.options.l1reg:
@@ -54,10 +54,10 @@ def Block(model_in, filters=settings.options.filters, add=True, drop=True, use_d
 
 
 
-def module_down(model, filters):
+def Block(model, filters):
     if settings.options.densenet:
-        model1 = Block(model,  add=False, drop=False, filters=filters)
-        model2 = Block(model1, add=False, drop=False, filters=filters)
+        model1 = ConvBlock(model,  add=False, drop=False, filters=filters)
+        model2 = ConvBlock(model1, add=False, drop=False, filters=filters)
         model  = Concatenate()([model, model1, model2])
         model  = Conv2D( \
                 filters=filters,
@@ -65,49 +65,23 @@ def module_down(model, filters):
                 padding='same',
                 activation=settings.options.activation)(model)
     elif settings.options.unet:
-        model = Block(model, add=False, drop=False, filters=filters)
-        model = Block(model, add=False, drop=False, filters=filters)
+        model = ConvBlock(model, add=False, drop=False, filters=filters)
+        model = ConvBlock(model, add=False, drop=False, filters=filters)
     elif settings.options.resnet:
-        model = Block(model, add=True, drop=False, filters=filters)
-        model = Block(model, add=True, drop=False, filters=filters)
+        model = ConvBlock(model, add=True, drop=False, filters=filters)
+        model = ConvBlock(model, add=True, drop=False, filters=filters)
     return model
 
+def module_down(model, filters):
+    return Block(model, filters)
+
 def module_up(model, filters):
-    if settings.options.densenet:
-        model1 = Block(model,  add=False, drop=False, filters=filters)
-        model2 = Block(model1, add=False, drop=False, filters=filters)
-        model  = Concatenate()([model, model1, model2])
-        model  = Conv2D( \
-                filters=filters,
-                kernel_size=(1,1),
-                padding='same',
-                activation=settings.options.activation)(model)
-    elif settings.options.unet:
-        model = Block(model, add=False, drop=False, filters=filters)
-        model = Block(model, add=False, drop=False, filters=filters)
-    elif settings.options.resnet:
-        model = Block(model, add=True, drop=False, filters=filters)
-        model = Block(model, add=True, drop=False, filters=filters)
-    return model
+    return Block(model, filters) 
 
 def module_mid(model, depth, filters=settings.options.filters):
     if depth==0:
-        if settings.options.densenet:
-            model1 = Block(model,  add=False, drop=False, filters=filters)
-            model2 = Block(model1, add=False, drop=False, filters=filters)
-            model  = Concatenate()([model, model1, model2])
-            model  = Conv2D( \
-                    filters=filters,
-                    kernel_size=(1,1),
-                    padding='same',
-                    activation=settings.options.activation)(model)
-        elif settings.options.unet:
-            model = Block(model, add=False, drop=False, filters=filters)
-            model = Block(model, add=False, drop=False, filters=filters)
-        elif settings.options.resnet:
-            model = Block(model, add=True, drop=False, filters=filters)
-            model = Block(model, add=True, drop=False, filters=filters)
-        return model
+        return Block(model, filters)
+
     else:
 
         m_down = module_down(model, filters=filters)
@@ -122,7 +96,8 @@ def module_mid(model, depth, filters=settings.options.filters):
         m_mid = MaxPooling2D()(m_down)
         
         m_mid = module_mid(m_mid, depth=depth-1, filters=filters)
-        m_mid = module_up(m_mid, filters=filters) 
+    
+#        m_mid = module_up(m_mid, filters=filters) 
 
         if not settings.options.pocket:
             filters = int(filters/2)
@@ -168,8 +143,7 @@ def get_unet( _num_classes=1):
             kernel_size=(7,7),
             padding='same',
             activation=settings.options.activation )(layer_in)
-#    layer_mid = Add()([layer_features, layer_in])
-#    layer_mid = module_mid(layer_mid, depth=_depth)
+
     layer_mid = module_mid(layer_features, depth=_depth)
 
     layer_mid = Concatenate()([layer_features, layer_mid])
