@@ -108,6 +108,7 @@ def GetLoss():
   from mymetrics import dsc_l2, dsc_matlab, dsc_matlab_l2, dsc_l2_liver, dsc_l2_tumor, dsc_l2_background
 
   lss = dsc_l2
-  met = [dsc_l2, dsc_matlab_l2, dsc_l2_background, dsc_l2_liver, dsc_l2_tumor]
+#  met = [dsc_l2, dsc_matlab_l2, dsc_l2_background, dsc_l2_liver, dsc_l2_tumor]
+  met = [dsc_l2]
 
   return lss, met

@@ -102,7 +102,7 @@ def TrainModel(idfold=0, saveloclist=None):
     training_generator   = NpyDataGenerator(train_xlist, train_ylist)
     validation_generator = NpyDataGenerator(valid_xlist, valid_ylist)
     history_liver = model.fit_generator( \
-                        verbose=2,
+                        verbose=2-int(settings.options.verbose),
                         generator=training_generator,
                         validation_data=validation_generator,
                         use_multiprocessing=True,

@@ -177,13 +177,12 @@ def TrainModel(idfold=0, saveloclist=None):
                         validation_data     = validation_generator,
                         use_multiprocessing = True,
                         workers             = 16,
-#                        epochs              = settings.options.numepochs,
                         epochs              = settings.options.numepochs//2,
                         callbacks           = callbacks,
                         shuffle             = True,
                         )
     
-    
+    '''    
     ########
     ########
     ###
@@ -204,7 +203,6 @@ def TrainModel(idfold=0, saveloclist=None):
     for lyr in ensemble.layers:
         lyr.trainable = True
     ensemble.compile(loss=lss, metrics=met, optimizer=opt)
-#    ensemble.summary()
     print("\n\n#\t ensemble model on liver slices...\tModel parameters: {0:,}".format(ensemble.count_params()))
     
     train_xlist = [row[1] for row in trainingsubset]
@@ -221,9 +219,9 @@ def TrainModel(idfold=0, saveloclist=None):
                         validation_data     = validation_generator,
                         use_multiprocessing = True,
                         workers             = 16,
-#                        epochs              = settings.options.numepochs,
                         epochs              = settings.options.numepochs//2,
                         callbacks           = callbacks,
                         shuffle             = True,
                         )
+    '''
     return modelloc

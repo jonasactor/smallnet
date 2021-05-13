@@ -57,10 +57,8 @@ def PredictNifti(model, saveloc, imageloc, segloc=None):
 
     if segloc:
         trueseg = preprocess.resize_to_nn(trueseg, transpose=False).astype(settings.SEG_DTYPE)
-#        names   = ['Background','Liver','Tumor']
-#        metrics = [dsc_l2_background_npy, dsc_l2_liver_npy, dsc_l2_tumor_npy]
         names   = ['DSC']
-        metrics = [dsc_l2_npy]
+        metrics = [dsc_l2_3D_npy]
         if settings.options.liver:
             tseg = (trueseg >= 1).astype(np.int32)[...,np.newaxis]
         elif settings.options.tumor:
@@ -88,22 +86,27 @@ def PredictNifti(model, saveloc, imageloc, segloc=None):
 
     if settings.options.ttdo and segloc:
         print('starting TTDO...')
+
+
+        loaded_model = model.layers[-2]
+        imagedata = np.transpose(image, (2,0,1))[...,np.newaxis]
+
         f = K.function([loaded_model.layers[0].input, K.learning_phase()],
                        [loaded_model.layers[-1].output])
 
         print('\tgenerating trials...')
-        results = np.zeros(trueseg.shape + (3,settings.options.ntrials,))
+        results = np.zeros(trueseg.shape + (1,settings.options.ntrials,))
+        nvalidslices = imagedata.shape[0]
+        stride = 128
         for jj in range(settings.options.ntrials):
-            segdata = np.zeros((*image.shape, 3))
-            nvalidslices = image.shape[2]-settings.options.thickness+1
-            for z in range(nvalidslices):
-                indata = image[np.newaxis,:,:,z:z+settings.options.thickness,np.newaxis]
-                segdata[:,:,z:z+settings.options.thickness,:] += f([indata, 1])[0,...]
-            for i in range(settings.options.thickness):
-                segdata[:,:,i,:] *= (settings.options.thickness)/(i+1)
-            for i in range(settings.options.thickness):
-                segdata[:,:,-1-i,:] *= (settings.options.thickness)/(i+1)
-            results[...,jj] = segdata / settings.options.thickness
+            zidx = 0
+            while zidx < nvalidslices:
+                maxz = min(zidx+stride,nvalidslices)
+#                out = f([imagedata[zidx:maxz,...], 1])[0]
+#                 out = np.transpose(out, (1,2,0,3))
+#                results[...,zidx:maxz,0,jj] = out[...,0]
+                results[...,zidx:maxz,0,jj] = np.transpose(f([imagedata[zidx:maxz,...],1])[0],     (1,2,0,3))[...,0]
+                zidx+=stride
 
         print('\tcalculating statistics...')
         pred_avg = results.mean(axis=-1)
@@ -152,11 +155,6 @@ def PredictKFold(modelloc, dbfile, outdir, kfolds=settings.options.kfolds, idfol
     print('loading model from', modelloc)
     customdict={ \
             'dsc_l2':            dsc_l2,
-#            'dsc_matlab':        dsc_matlab,
-#            'dsc_matlab_l2':     dsc_matlab_l2,
-#            'dsc_l2_liver':      dsc_l2_liver,
-#            'dsc_l2_tumor':      dsc_l2_tumor,
-#            'dsc_l2_background': dsc_l2_background,
             'ISTA':              ISTA,
             'DepthwiseConv3D':   DepthwiseConv3D,
             }
@@ -231,11 +229,6 @@ def PredictCSV(modelloc, outdir, indir=settings.options.dbfile):
     print('loading model from', modelloc)
     customdict={ \
             'dsc_l2':            dsc_l2,
-            'dsc_matlab':        dsc_matlab,
-            'dsc_matlab_l2':     dsc_matlab_l2,
-            'dsc_l2_liver':      dsc_l2_liver,
-            'dsc_l2_tumor':      dsc_l2_tumor,
-            'dsc_l2_background': dsc_l2_background,
             'ISTA':              ISTA,
             'DepthwiseConv3D':   DepthwiseConv3D,
             }
@@ -243,6 +236,8 @@ def PredictCSV(modelloc, outdir, indir=settings.options.dbfile):
     opt          = GetOptimizer()
     lss, met     = GetLoss()
     loaded_model.compile(loss=lss, metrics=met, optimizer=opt)
+
+    (train_index, test_index, valid_index) = GetSetupKfolds(settings.options.dbfile, settings.options.kfolds, settings.options.idfold)
 
     with open(indir, 'r') as csvfile:
         myreader = csv.DictReader(csvfile, delimiter=',')

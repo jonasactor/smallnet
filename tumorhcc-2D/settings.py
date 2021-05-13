@@ -57,6 +57,9 @@ def process_options():
     parser.add_option("--datafiles_all",
                   action="store", dest="datafiles_all", default=None,
                   help="location of pre-saved files for prediction", metavar="path")
+    parser.add_option("--verbose",
+                  action="store_true", dest="verbose", default=False,
+                  help="verbose output for each epoch", metavar="bool")
 
     parser.add_option("--liver",
                   action="store_true", dest="liver", default=False,
@@ -133,6 +136,9 @@ def process_options():
     parser.add_option("--depthwise",
                   action="store_true", dest="depthwise", default=False,
                   help="use DepthwiseConv2D( (3,3) ) followed by Conv2D( (1,1) ) kernels", metavar="bool")
+    parser.add_option("--dm",
+                  type="int", dest="dm", default=1,
+                  help="depthwise multiplier, if using depthwise convolutions")
     parser.add_option("--conv2Dtranspose",
                   action="store_true", dest="conv2Dtranspose", default=False,
                   help="use 2D transpose convolutions to upsample", metavar="bool")

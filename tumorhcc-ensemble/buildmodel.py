@@ -155,22 +155,27 @@ def get_unet_tumor(liver_model):
 
     all_in = Input(shape=(*indim, 2))
 
+    img = Lambda( lambda x: x[...,0,np.newaxis] )(all_in)
+    label = Lambda( lambda x: x[...,1,np.newaxis])(all_in)
+    mask = Multiply()([img, label])
+    all_in3 = Concatenate()([img, label, mask])
+
     tumor_features = Conv2D(\
             filters=_filters,
             kernel_size=(7,7),
             padding='same',
-            activation=settings.options.activation)(all_in)
+            activation=settings.options.activation)(all_in3)
     tumor_unet = unet(tumor_features)
     tumor_out  = Add()([tumor_features, tumor_unet])
     tumor_out  = CapLayer(tumor_out, classes=1, act_f='sigmoid')
     tumor_model = Model(inputs=all_in, outputs=tumor_out)
     tumor_model.summary()
-    print('\t preloading weights from liver model...')
-    for i, lyr in enumerate(liver_model.layers):
-        if lyr.name == 'conv2d_1':
-            print(lyr)
-        else:
-            tumor_model.layers[i].set_weights(lyr.get_weights())
+#    print('\t preloading weights from liver model...')
+#    for i, lyr in enumerate(liver_model.layers):
+#        if lyr.name == 'conv2d_1':
+#            print(lyr)
+#        else:
+#             tumor_model.layers[i-4].set_weights(lyr.get_weights())
 
     if settings.options.gpu > 1:
         return multi_gpu_model(tumor_model, gpus=settings.options.gpu)

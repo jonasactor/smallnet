@@ -54,4 +54,3 @@ if options.predictmodel:
     else:
         PredictNifti(model, options.outdir+'/predictions/pred', options.predictimage, segloc=None)
 
-    PredictModel()

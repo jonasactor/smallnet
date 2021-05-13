@@ -22,7 +22,7 @@ import settings
 from setupmodel import GetSetupKfolds
 from setupmodel import GetOptimizer, GetLoss
 from buildmodel import get_unet
-from mymetrics import dsc_l2,     dsc_matlab,     dsc_matlab_l2,     dsc_l2_liver,     dsc_l2_tumor,     dsc_l2_background
+from mymetrics import dsc_l2
 from mymetrics import dsc_l2_liver_npy, dsc_l2_tumor_npy, dsc_l2_background_npy
 from ista import ISTA
 from DepthwiseConv3D import DepthwiseConv3D
@@ -31,12 +31,27 @@ import preprocess
 
 
 def PredictNpy(model, imagedata):
-    segdata = np.zeros((*imagedata.shape, 3))
+    segdata = np.zeros((*imagedata.shape, 1))
     nvalidslices = imagedata.shape[2]-settings.options.thickness+1
     for z in range(nvalidslices):
         indata = imagedata[np.newaxis,:,:,z:z+settings.options.thickness,np.newaxis]
-        segdata[:,:,z:z+settings.options.thickness,:] += model.predict( indata )[0,...]
-    segdata_int = np.argmax(segdata, axis=-1)
+        if settings.options.gpu == 2:
+            indata_gpu2 = np.concatenate((indata, indata), axis=0)
+            segdata[:,:,z:z+settings.options.thickness,:] += model.predict( indata_gpu2 )[0,...]
+        elif settings.options.gpu == 1:
+            segdata[:,:,z:z+settings.options.thickness,:] += model.predict( indata )[0,...]
+        else:
+            print('number of gpus not supported')
+            segdata[:,:,z:z+settings.options.thickness,:] += model.predict( indata )[0,...]
+#    segdata_int = np.argmax(segdata, axis=-1)
+    
+    # take into account top/bottom have been predicted fewer times
+    for i in range(settings.options.thickness):
+        segdata[:,:,i,:] *= (settings.options.thickness)/(i+1)
+    for i in range(settings.options.thickness):
+        segdata[:,:,-1-i,:] *= (settings.options.thickness)/(i+1)
+    segdata = segdata / settings.options.thickness
+    segdata_int = (segdata >= 0.5).astype(settings.SEG_DTYPE)
     return segdata, segdata_int
 
 def PredictNifti(model, saveloc, imageloc, segloc=None):
@@ -54,9 +69,12 @@ def PredictNifti(model, saveloc, imageloc, segloc=None):
 
     if segloc:
         trueseg = preprocess.resize_to_nn(trueseg, transpose=False).astype(settings.SEG_DTYPE)
-        names   = ['Background','Liver','Tumor']
-        metrics = [dsc_l2_background_npy, dsc_l2_liver_npy, dsc_l2_tumor_npy]
-        scores  = [ met(trueseg, predseg) for met in metrics]
+#        names   = ['Background','Liver','Tumor']
+#        metrics = [dsc_l2_background_npy, dsc_l2_liver_npy, dsc_l2_tumor_npy]
+        names   = ['Tumor']
+        metrics = [dsc_l2_liver_npy]
+        tseg = (trueseg > 1).astype(settings.SEG_DTYPE)[...,np.newaxis]
+        scores  = [ met(tseg, predseg) for met in metrics]
         print('DSC:\t', end='')
         for idx,s in enumerate(scores):
             print(names[idx], '\t', 1.0-s, end='\t')
@@ -88,15 +106,11 @@ def PredictNifti(model, saveloc, imageloc, segloc=None):
             for z in range(nvalidslices):
                 indata = image[np.newaxis,:,:,z:z+settings.options.thickness,np.newaxis]
                 segdata[:,:,z:z+settings.options.thickness,:] += f([indata, 1])[0,...]
-            segdata[:,:,0,:] *= 5.0
-            segdata[:,:,1,:] *= 5.0/2.0
-            segdata[:,:,2,:] *= 5.0/3.0
-            segdata[:,:,3,:] *= 5.0/4.0
-            segdata[:,:,-1,:] *= 5.0
-            segdata[:,:,-2,:] *= 5.0/2.0
-            segdata[:,:,-3,:] *= 5.0/3.0
-            segdata[:,:,-4,:] *= 5.0/4.0
-            results[...,jj] = segdata / 5.0
+            for i in range(settings.options.thickness):
+                segdata[:,:,i,:] *= (settings.options.thickness)/(i+1)
+            for i in range(settings.options.thickness):
+                segdata[:,:,-1-i,:] *= (settings.options.thickness)/(i+1)
+            results[...,jj] = segdata / settings.options.thickness
 
         print('\tcalculating statistics...')
         pred_avg = results.mean(axis=-1)
@@ -145,11 +159,11 @@ def PredictKFold(modelloc, dbfile, outdir, kfolds=settings.options.kfolds, idfol
     print('loading model from', modelloc)
     customdict={ \
             'dsc_l2':            dsc_l2,
-            'dsc_matlab':        dsc_matlab,
-            'dsc_matlab_l2':     dsc_matlab_l2,
-            'dsc_l2_liver':      dsc_l2_liver,
-            'dsc_l2_tumor':      dsc_l2_tumor,
-            'dsc_l2_background': dsc_l2_background,
+#            'dsc_matlab':        dsc_matlab,
+#            'dsc_matlab_l2':     dsc_matlab_l2,
+#            'dsc_l2_liver':      dsc_l2_liver,
+#            'dsc_l2_tumor':      dsc_l2_tumor,
+#            'dsc_l2_background': dsc_l2_background,
             'ISTA':              ISTA,
             'DepthwiseConv3D':   DepthwiseConv3D,
             }

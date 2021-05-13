@@ -1,6 +1,6 @@
 import numpy as np
 import keras
-from keras.layers import Conv3D, Add, SpatialDropout3D, AveragePooling3D, UpSampling3D, Input
+from keras.layers import Conv3D, Add, SpatialDropout3D, AveragePooling3D, UpSampling3D, Input, MaxPooling3D
 from DepthwiseConv3D import DepthwiseConv3D
 from keras.models import Model, Sequential
 from keras.models import model_from_json, load_model
@@ -15,24 +15,31 @@ import settings
 from ista import ISTA
 
 
-def Block(model_in, filters=16, add=True, drop=False):
+def Block(model_in, filters=settings.options.filters, add=True, drop=False):
     kreg = None
     wreg = None
     if settings.options.l1reg:
         kreg=l1(settings.options.l1reg)
-    model = DepthwiseConv3D( \
-        kernel_size=(3,3,3),
-        padding='same',
-        depth_multiplier=1,
-        activation=settings.options.activation,
-        kernel_regularizer=kreg )(model_in)
+#    model = DepthwiseConv3D( \
+#        kernel_size=(3,3,3),
+#        padding='same',
+#        depth_multiplier=1,
+#        activation=settings.options.activation,
+#        kernel_regularizer=kreg )(model_in)
+#    model = Conv3D( \
+#        filters=filters,
+#        kernel_size=(1,1,1),
+#        padding='same',
+#        activation='linear',
+#        kernel_regularizer=wreg,
+#        use_bias=True)(model)
     model = Conv3D( \
         filters=filters,
-        kernel_size=(1,1,1),
+        kernel_size=(3,3,3),
         padding='same',
-        activation='linear',
-        kernel_regularizer=wreg,
-        use_bias=True)(model)
+        activation=settings.options.activation,
+        kernel_regularizer=kreg,
+        use_bias=True)(model_in)
     if drop:
         model = SpatialDropout3D(settings.options.dropout)(model)
     if add:
@@ -41,7 +48,7 @@ def Block(model_in, filters=16, add=True, drop=False):
 
 def module_down(model):
     model = Block(model)
-    model = AveragePooling3D(pool_size=(2,2,1), strides=(2,2,1))(model)
+    model = MaxPooling3D(pool_size=(2,2,1), strides=(2,2,1))(model)
     model = Block(model)
     return model
 
@@ -60,10 +67,12 @@ def module_mid(model, depth):
         m_down = module_down(model)
         m_mid  = module_mid(m_down, depth=depth-1)
         m_up   = module_up(m_mid)
+        m_up   = Block(m_up, add=False)
         m_up   = Add()([model, m_up])
+        m_up   = Block(m_up, add=False, drop=True)
         return m_up
 
-def get_unet( _num_classes=3):
+def get_unet( _num_classes=1):
     _depth   = settings.options.depth
     _filters = settings.options.filters
 
@@ -84,7 +93,8 @@ def get_unet( _num_classes=3):
             filters=_num_classes,
             kernel_size=(1,1,1),
             padding='same',
-            activation='softmax',
+#            activation='softmax',
+            activation='sigmoid',
             use_bias=True)(layer_mid)
 
     model = Model(inputs=layer_in, outputs=layer_out)

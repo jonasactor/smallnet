@@ -43,7 +43,7 @@ def process_options():
                   action="store", dest="dbfile", default="./trainingdata.csv",
                   help="training data file", metavar="string")
     parser.add_option( "--rootlocation",
-                  action="store", dest="rootlocation", default='/mnt/c/Users/jonas/Documents/code/Livermask/LiTS',
+                  action="store", dest="rootlocation", default='/rsrch1/ip/jacctor/LiTS/LiTS',
                   help="root location for images for training; prepend to csv", metavar="Path")
     parser.add_option("--datafiles",
                   action="store", dest="datafiles", default=None,
@@ -135,6 +135,10 @@ def perform_setup(options):
         else:
             config.gpu_options.visible_device_list = str(hvd.local_rank())
         K.set_session(tf.Session(config=config))
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth=True
+    config.gpu_options.per_process_gpu_memory_fraction=0.25
+    K.set_session(tf.Session(config=config))
 
 
     global _globalnpfile

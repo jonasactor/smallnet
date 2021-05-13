@@ -91,44 +91,12 @@ def TrainModel(idfold=0, saveloclist=None):
     history_liver = model.fit_generator( \
                         generator=training_generator,
                         validation_data=validation_generator,
-                        # use_multiprocessing=True,
-                        # workers=4,
+                        use_multiprocessing=True,
+                        workers=8,
                         # steps_per_epoch  = ntrainslices / settings.options.trainingbatch,
                         epochs           = settings.options.numepochs,
                         callbacks        = callbacks,
                         shuffle          = True,
                         # validation_steps = nvalidslices / settings.options.validationbatch,
                         )
-  #
-  # ###
-  # ### make predicions on validation set
-  # ###
-  # print("\n\n\tapplying models...")
-  # y_pred_float = model.predict( x_valid_typed[...,np.newaxis] )
-  # y_pred_seg   = np.argmax(y_pred_float, axis=-1).astype(settings.SEG_DTYPE)
-  #
-  # print("\tsaving to file...")
-  # trueinnii     = nib.Nifti1Image(x_valid,       None)
-  # trueinnii.to_filename(    logfileoutputdir+'/nii/trueimg.nii.gz')
-  # del trueinnii
-  # del x_valid
-  #
-  # truesegnii    = nib.Nifti1Image(y_valid,       None)
-  # truesegnii.to_filename(   logfileoutputdir+'/nii/trueseg.nii.gz')
-  # del truesegnii
-  # del y_valid
-  #
-  # truelivernii  = nib.Nifti1Image(y_valid_liver, None)
-  # truelivernii.to_filename( logfileoutputdir+'/nii/trueliver.nii.gz')
-  # del truelivernii
-  # del y_valid_liver
-  #
-  # predsegnii    = nib.Nifti1Image(y_pred_seg, None )
-  # predsegnii.to_filename(   logfileoutputdir+'/nii/predtumorseg.nii.gz')
-  # del predsegnii
-  # del y_pred_seg
-  #
-  # del y_pred_float
-  #
-  # print("\done saving.")
     return modelloc

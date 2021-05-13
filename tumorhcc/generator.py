@@ -9,7 +9,7 @@ import settings
 import preprocess
 
 
-def save_img_into_substacks(Xall, Yall, Xloc, Yloc, thickness = settings.options.thickness, n_classes=3):
+def save_img_into_substacks(Xall, Yall, Xloc, Yloc, thickness = settings.options.thickness, n_classes=1):
     """
     Saves 3D subset blocks as .npy files
     """
@@ -17,16 +17,19 @@ def save_img_into_substacks(Xall, Yall, Xloc, Yloc, thickness = settings.options
     n_valid_imgs = Xall.shape[2] - thickness + 1
     Xfilelist = [None]*n_valid_imgs
     Yfilelist = [None]*n_valid_imgs
-    for z in range(n_valid_imgs):
+    for z in range(0,n_valid_imgs,thickness-2):
         Xthis = Xall[...,z:thickness+z,np.newaxis]
-        Ythis = to_categorical(Yall[...,z:thickness+z],num_classes=n_classes)
+        if n_classes == 1:
+            Ythis = Yall[...,z:thickness+z,np.newaxis]
+        else:
+            Ythis = to_categorical(Yall[...,z:thickness+z], num_classes=n_classes)
         Xthisloc = Xloc+'-'+str(z)+'.npy'
         Ythisloc = Yloc+'-'+str(z)+'.npy'
         np.save(Xthisloc, Xthis)
         np.save(Ythisloc, Ythis)
         Xfilelist[z] = Xthisloc
         Yfilelist[z] = Ythisloc
-    return Xfilelist, Yfilelist
+    return [x for x in Xfilelist if x is not None], [y for y in Yfilelist if y is not None]
 
 def isolate_ROI(X, Y):
     """
@@ -34,11 +37,22 @@ def isolate_ROI(X, Y):
     """
     nslice = X.shape[2]
     assert X.shape[2] == Y.shape[2]
-    print(X.shape, Y.shape)
+    print('sizes :\t', X.shape, Y.shape)
+
+    pad = settings.options.thickness // 2
 
     maxY = np.amax(Y, axis=(0,1))
-    ROI = maxY > 0
-    return X[...,ROI], Y[...,ROI]
+    ROI  = maxY > 1
+    idx  = np.nonzero(ROI)
+    try:
+        min_ROI = max([np.min(idx)   - pad, 0])
+        max_ROI = min([np.max(idx)+1 + pad, len(maxY)])
+    except:
+        min_ROI = len(maxY)//2    - pad
+        max_ROI = len(maxY)//2 +1 + pad
+    assert max_ROI - min_ROI >= settings.options.thickness 
+    print('ROI   :\tslices', min_ROI, '-', max_ROI)
+    return X[...,min_ROI:max_ROI], Y[...,min_ROI:max_ROI]
 
 
 def setup_training_from_file():
@@ -96,9 +110,9 @@ class NpyDataGenerator(keras.utils.Sequence):
     def __init__(self, imgloclist,
                        segloclist,
                        batch_size=settings.options.trainingbatch,
-                       dim=(settings._ny, settings._nx, settings.options.thickness),
+                       dim=(settings.options.trainingresample, settings.options.trainingresample, settings.options.thickness),
                        n_channels=1,
-                       n_classes=3,
+                       n_classes=1,
                        loc_csv=None,
                        shuffle=True):
         'Initialization'
@@ -148,13 +162,9 @@ class NpyDataGenerator(keras.utils.Sequence):
             try:
                 (xloc, yloc) = locpair
                 X[i,...] = np.load(xloc)
-                Y[i,...] = np.load(yloc)
+                Y[i,...] = (np.load(yloc) > 1).astype(settings.SEG_DTYPE)
             except:
                 X[i,...] = np.zeros((*self.dim, self.n_channels))
                 Y[i,...] = np.zeros((*self.dim, self.n_classes))
-        # for i, xloc in enumerate(list_x_temp):
-        #     X[i,] = np.load(xloc)
-        # for i, yloc in enumerate(list_y_temp):
-        #     Y[i,] = np.load(yloc)
 
         return X, Y

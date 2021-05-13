@@ -26,7 +26,7 @@ def ConvBlock(model_in, filters=settings.options.filters, add=True, drop=True, u
         model = DepthwiseConv2D( \
             kernel_size=(5,5),
             padding='same',
-            depth_multiplier=4,
+            depth_multiplier=settings.options.dm,
             activation='linear',
             use_bias=False,
             kernel_regularizer=kreg )(model_in)
